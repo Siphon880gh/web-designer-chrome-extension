@@ -12,14 +12,18 @@ chrome.devtools.panels.elements.createSidebarPane("Bootstrap-Tailwind Templates"
 chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
     chrome.devtools.inspectedWindow.eval("$0.outerHTML", (result, isException) => {
         if (isException) {
-            // alert("1");
             return;
-            //chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-error", data: result})
+            // chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-error", data: result})
+            // alert("Error selecting element")
         }
-        // alert("2")
-        result.innerHTML = "Hello World";
         
-        //chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-success", data: result})
-        // port.postMessage({from: "devtools", message: "Inspect Element: devtools.js sent to panel.js, changing HTML selected preview"});
+        // chrome.runtime.sendMessage({type:"updateHTMLSelected-success", data: result})
+        // alert("Selected element's outer HTML: " + result)
+
+        // TODO: If a button is pressed at sidebar.js, then run:
+        // chrome.devtools.inspectedWindow.eval("$0.outerHTML = '<div>Swapped HTML</div>'", (result, isException) => {});
+        // Asked ChatGPT but it seems like their code is not reliable. But to juggle some thoughts anyways:
+        // https://chat.openai.com/c/51b4ce96-af44-433d-b6d8-f6214946162f
+
     });
 });

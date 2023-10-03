@@ -1,10 +1,8 @@
-console.log("Content.js Designer")
+console.log("Loaded content.js")
 
+/* Will abandon for a background.js approach */
 chrome.runtime.onMessage.addListener((msg) => {
-    if(msg.type === 'logUpdateHTMLSelected-success') {
-      alert("Inspect Element: Success at devtools.js where sent here and to panel.js.");
+    if(msg.type === 'swapHTML') {
+      alert("Swapping html");
     }
-    else if(msg.type === 'logUpdateHTMLSelected-error') {
-      alert("Inspect Element: Error at devtools.js where sent here.");
-    }
-  });
+});

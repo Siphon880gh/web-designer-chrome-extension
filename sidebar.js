@@ -1,25 +1,15 @@
-// alert("panel.js loaded")
+document.querySelector("#chose-bootstrap").addEventListener("click", function() {
+    localStorage.setItem("swapWith", "bootstrap");
+});
 
-
-// let port = chrome.runtime.connect({name: "devtools-panel"});
-
-// port.onMessage.addListener(function(message) {
-//     // Handle the message from devtools.js
-//     console.log(message);
-// });
-
-// function fakeAlert() {
-//     alert("panel.js loaded - from devTools")
-// }
-
-// window.fakeAlert = fakeAlert;
-
-// Example: Send a message to devtools.js
-// port.postMessage({from: "panel", message: "Hello from panel.js!"});
-
-// chrome.runtime.onMessage.addListener((msg) => {
-//     if(msg.type === 'updateResultText') {
-//       document.querySelector("#selected-html").textContent = msg.data; 
-//       alert("Hey from content.js");
-//     }
-//   });
+setInterval(()=>{
+    var swapWith = localStorage.getItem("swapWith");
+    if(swapWith) {
+        console.log("Swapping to:")
+        console.log(swapWith);
+        localStorage.removeItem("swapWith");
+        
+        /* Will abandon for a background.js approach */
+        chrome.runtime.sendMessage({type:"swapHTML", data: swapWith})
+    }
+}, 500)
