@@ -1,4 +1,4 @@
-# Dev
+# Web Designer in Chrome Extension
 
 ![Last Commit](https://img.shields.io/github/last-commit/Siphon880gh/web-designer-chrome-extension)
 <a target="_blank" href="https://github.com/Siphon880gh/stocks-technical-analysis" rel="nofollow"><img src="https://img.shields.io/badge/GitHub--blue?style=social&logo=GitHub" alt="Github" data-canonical-src="https://img.shields.io/badge/GitHub--blue?style=social&logo=GitHub" style="max-width:10ch;"></a>
