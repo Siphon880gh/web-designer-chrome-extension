@@ -33,11 +33,11 @@
         When I swap an element with a template, I want to swap:
         <br/>
 
-        <input type="radio" name="htmlLevel">
+        <input id="html-level-outer" type="radio" name="htmlLevel" value="outerHTML">
         <label for="html-level-outer">Entire selected's HTML</label>
         <br/>
         
-        <input type="radio" name="htmlLevel">
+        <input id="html-level-inner" type="radio" name="htmlLevel" value="innerHTML">
         <label for="html-level-inner">Inside selected's HTML</label>
     </div>
 
@@ -49,5 +49,7 @@
             </i>
         </div>
     </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>
