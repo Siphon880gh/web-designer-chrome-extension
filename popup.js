@@ -4,7 +4,19 @@ var app = {
         this.store = store;
     },
     observe: {
-        DOMContentReady:()=>{
+        DOMContentReady:async()=>{
+
+            let swapModeWrapper = await chrome.storage.local.get("swapMode")
+            let swapMode = swapModeWrapper?.swapMode;
+            if(!swapMode) swapMode = "outerHTML"; // default
+            if(swapMode==="outerHTML") {
+                document.querySelector("#html-level-outer").checked = true;
+                document.querySelector("#html-level-inner").checked = false;
+            } else {
+                document.querySelector("#html-level-outer").checked = false;
+                document.querySelector("#html-level-inner").checked = true;
+            }
+
             document.querySelectorAll('[name="htmlLevel"]').forEach(inputRadio=>{
                inputRadio.addEventListener('change', function(ev){
                     switch(ev.target.value) {
@@ -28,13 +40,6 @@ var app = {
         setInnerHTML: ()=>{
             this.store.set({swapMode: 'innerHTML'}, function() {
                 // alert('Value is set to ' + 'innerHTML');
-            });
-        }
-    },
-    getState: {
-        getSwapMode: ()=>{
-            this.store.get('swapMode', function(result) {
-                // alert('Value currently is ' + result.swapMode);
             });
         }
     }

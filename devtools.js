@@ -1,5 +1,6 @@
 let sidebar = null;
 let swapHTML = null;
+let swapMode = null;
 let poller = null;
 
 chrome.devtools.panels.elements.createSidebarPane("Bootstrap-Tailwind Templates", (mySidebar) => {
@@ -16,6 +17,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
     switch(request.type) {
         case "swapHTML":
             swapHTML = request.data;
+            swapMode = request.swapMode;
             break;
     }
 }); // addListener
@@ -34,8 +36,13 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
         // TODO: If a button is pressed at sidebar.js, then run:
         let inspectedWindow = chrome.devtools.inspectedWindow
         poller = setInterval(()=>{
+            console.log(swapMode);
             if(swapHTML!==null) {
-                inspectedWindow.eval(`$0.outerHTML = '<div>${swapHTML}</div>'`, (result, isException) => {});
+                if(swapMode==="outerHTML") {
+                    inspectedWindow.eval(`$0.outerHTML = '<div>${swapHTML}</div>'`, (result, isException) => {});
+                } else {
+                    inspectedWindow.eval(`$0.innerHTML = '<div>${swapHTML}</div>'`, (result, isException) => {});
+                }
                 swapHTML = null;
             }
         }, 10);
