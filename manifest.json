@@ -10,7 +10,7 @@
         "128": "icon128x128.png"
     },
     "content_security_policy": {
-        "extension_pages": "default-src 'self' https://cdn.tailwindcss.com; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline';"
+        "extension_pages": "default-src 'self' https://cdn.tailwindcss.com; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://camo.githubusercontent.com"
     },
     "permissions": [
         "system.memory",
