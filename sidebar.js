@@ -1,4 +1,4 @@
-alert("panel.js loaded")
+// alert("panel.js loaded")
 
 
 // let port = chrome.runtime.connect({name: "devtools-panel"});
@@ -8,11 +8,11 @@ alert("panel.js loaded")
 //     console.log(message);
 // });
 
-function fakeAlert() {
-    alert("panel.js loaded - from devTools")
-}
+// function fakeAlert() {
+//     alert("panel.js loaded - from devTools")
+// }
 
-window.fakeAlert = fakeAlert;
+// window.fakeAlert = fakeAlert;
 
 // Example: Send a message to devtools.js
 // port.postMessage({from: "panel", message: "Hello from panel.js!"});
