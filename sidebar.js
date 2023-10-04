@@ -25,7 +25,7 @@ tooltipHovers.forEach(tooltipHover=>{
         console.log("hovered");
     });
 })
-var tooltipCloses = document.querySelectorAll("[[data-tooltip-id]");
+var tooltipCloses = document.querySelectorAll("[data-tooltip-id]");
 tooltipCloses.forEach(tooltipClose=>{
     tooltipClose.addEventListener("click", function(ev) {
         ev.target.classList.remove("active")
@@ -33,9 +33,18 @@ tooltipCloses.forEach(tooltipClose=>{
 })
 
 
-document.querySelectorAll(".chose-bootstrap").forEach(chose=>{
-        chose.addEventListener("click", async function() {
-            let swapWith = "<div>Bootstrap</div>";
+document.querySelectorAll(".chose-template").forEach(chose=>{
+        chose.addEventListener("click", async function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            let templateBtn = ev.target;
+            if(!templateBtn.matches(".chose-template")) {
+                templateBtn = templateBtn.closest(".chose-template");
+            }
+
+            let templateElm = templateBtn.parentNode.children[0];
+            let swapWith = templateElm.outerHTML;
 
             console.log("Swapping to:")
             console.log(swapWith)

@@ -36,6 +36,31 @@
       [data-tooltip-id]:not(.active) {
         opacity:0;
       }
+      .chose-template {
+        color: white;
+        background-color: rgba(60,110,210,0.5);
+        border: rgba(60,110,210,1);
+        padding: 10px;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        width: 80px;
+        text-align:center;
+        line-height: 12px;
+        font-weight: 500;
+        color: black;
+        border-top-right-radius: 10px; cursor:pointer;
+        transition: all 300ms;
+      }
+      .chose-template:hover {
+        color: white;
+      }
+      .chose-template .icon {
+        transition: all 300ms;
+      }
+      .chose-template:hover .icon {
+        filter: invert(1);
+      }
 
     </style>
   </head>
@@ -51,10 +76,12 @@
     <div data-tooltip-id="swap"><i>Hint: </i>Swap selected element (from Inspect or the Elements panel)</div>
 
     <div style="margin-top:48px">
-      <div style="display:flex; justify-content:space-between;">
+      <div style="display:flex; justify-content:space-between; width:100%">
         <textarea id="bootstrap-code"><div>Bootstrap</div></textarea>
-        <div>Use Template</div>
-      </div>
+        <div class="chose-template">
+          <span class="icon" style="font-size:175%;">➕</span>
+          <br/>Use Template</div>
+        </div>
     </div>
 
     <script src="sidebar.js"></script>
