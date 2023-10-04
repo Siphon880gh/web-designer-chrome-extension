@@ -9,5 +9,6 @@ for (let i = 0; i < metaTags.length; i++) {
     // Modify the CSP content attribute to allow external images
     const cspContent = metaTags[i].getAttribute('content');
     metaTags[i].setAttribute('content', cspContent + " img-src *;");
+    metaTags[i].setAttribute('content', cspContent + " connect-src *;");
   }
 }

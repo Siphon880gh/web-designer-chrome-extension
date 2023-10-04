@@ -50,7 +50,7 @@ async function useTemplateClicked(ev) {
                 target: {tabId: tab.id},
                 files: ['css-frameworks/bootstrap.bundle.min.js']
               });
-            alert("CSS and JS injected for Bootstrap 5 / Tailwind 2!")
+            // alert("CSS and JS injected for Bootstrap 5 / Tailwind 2!")
           });
           
     }
@@ -158,8 +158,16 @@ function redrawTemplateList() {
         });
 } // redrawTemplateList
 
-fetch(chrome.runtime.getURL('templates.html'))
-    .then(response => response.text())
+// fetch(chrome.runtime.getURL('templates.html'))
+fetch('https://wengindustry.com/main/engine/chrome-templates/')
+    .then(response => {
+        if(!response.ok) {
+            console.error("Error fetching templates.html");
+            console.error(response.status);
+            console.error(response.statusText);
+        }
+        return response.text()
+    })
     .then(html => {
         document.querySelector("#template-list").innerHTML = html;
         redrawTemplateList();
