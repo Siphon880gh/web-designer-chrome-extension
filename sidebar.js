@@ -63,9 +63,11 @@ async function useTemplateClicked(ev) {
 
 function redrawTemplateList() {
         // Select all list items
+
         const liItems = document.querySelectorAll('li');
     
         liItems.forEach(li => {
+            li.classList.add('template-listing');
             // Create a new details element
             const details = document.createElement('details');
     
@@ -127,6 +129,13 @@ function redrawTemplateList() {
             // templateControlSlot.insertBefore(templateContainer, null);
             // templateControlSlot.remove();
         })
+
+        // Class name template-listing will be exempted from other css rules
+        const ulItems = document.querySelectorAll('ul');
+    
+        ulItems.forEach(ul => {
+            ul.classList.add('template-listing');
+        });
 } // redrawTemplateList
 
 fetch(chrome.runtime.getURL('templates.html'))

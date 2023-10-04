@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Swapping Element</title>
+    <link href="css-frameworks/bootstrap.min.css" rel="stylesheet">
+    <link href="css-frameworks/tailwind.min.css" rel="stylesheet">
     <style>
       .where-to-tabs {
         display: flex;
@@ -117,7 +119,7 @@
             margin-top: 10px; */
             margin: 0;
         }
-        ul, li {
+        ul.template-listing, li.template-listing {
             margin: 0;
             padding: 0;
             list-style: none;
@@ -125,7 +127,9 @@
     </style>
   </head>
   <body>
-    <div class="where-to-tabs">
+    <h3>Template Swapper by Weng</h3>
+    <div>Supports: Bootstrap v5.2.3 and Tailwind v2.2.19</div>
+    <div class="where-to-tabs" style="margin-top:30px;">
       <button class="where-to active" data-value="swap">
         <span data-tooltip-target="swap">Swap Selected...</span>
       </button>
@@ -135,9 +139,11 @@
     </div>
     <div data-tooltip-id="swap"><i>Hint: </i>Swap selected element (from Inspect or the Elements panel)</div>
 
-    <div id="template-list" style="margin-top:48px">
+    <div id="template-list" style="margin-top:15px">
     </div>
 
     <script src="sidebar.js"></script>
+    <script src="css-frameworks/bootstrap.bundle.min.js"
+      crossorigin="anonymous"></script>
   </body>
 </html>
