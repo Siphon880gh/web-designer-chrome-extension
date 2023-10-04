@@ -7,6 +7,10 @@
 
 :page_facing_up: Description:
 ---
-By Weng Fei Fung. Swap in curated bootstrap and tailwind subtemplates using the Inspect Element. A special sidebar appears as part of DevTools' elements panel.
+By Weng Fei Fung. 
 
-**STATUS: Not done yet. Please come back in a few days**
+Create a website or modify the website you're on by inserting curated Codepen Bootstrap 5 and Tailwind 2 blocks in the comfort of Chrome's Inspect Element. A special sidebar appears as part of DevTools' Elements panel. 
+
+Because no additional CSS is required, you can simply copy the HTML of the website you designed.
+
+For now, you can rearrange the blocks by drag and dropping elements in the Elements panel.

@@ -34,6 +34,12 @@ tooltipCloses.forEach(tooltipClose=>{
     });
 })
 
+document.querySelector("#wipeout").addEventListener("click", function(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    chrome.runtime.sendMessage({type:"wipeout"});
+})
+
 async function useTemplateClicked(ev) {
     ev.preventDefault();
     ev.stopPropagation();

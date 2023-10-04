@@ -22,7 +22,17 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             insertMode = request.insertMode;
 
 
-            console.log("devTools.js swapHTML received swapHTML", swapHTML)
+            console.log("devTools.js received swapHTML", swapHTML)
+            break;
+        case "wipeout":
+            console.log("devTools.js wipeout command");
+            chrome.devtools.inspectedWindow.eval("document.body.innerHTML = '';", (result, isException) => {
+                if (isException) {
+                    return;
+                    // chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-error", data: result})
+                    // alert("Error selecting element")
+                }
+            });
             break;
     }
 }); // addListener

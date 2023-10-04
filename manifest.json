@@ -10,7 +10,7 @@
         "128": "icon128x128.png"
     },
     "content_security_policy": {
-        "extension_pages": "default-src 'self' https://wengindustry.com'; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' *; connect-src 'self' https://wengindustry.com"
+        "extension_pages": "default-src 'self''; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' *; connect-src 'self' https://wengindustry.com"
     },
     "permissions": [
         "activeTab",
