@@ -3,12 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <title>Swapping Element</title>
+    <style>
+      button.where-to {
+        border: 1px solid rgba(210,210,210,1);
+        background-color: rgba(210,210,210,0.5);
+      }
+      button.where-to.active {
+        border: 1px solid green;
+      }
+    </style>
   </head>
   <body>
-    <h4>Swap with:</h4>
+    <div>
+      <button class="where-to active" data-value="swap">Swap Inspected Element</button>
+      <button class="where-to" data-value="append">Insert Bottom</button>
+      <button class="where-to" data-value="prepend">Insert Top</button>
+    </div>
 
-    <button id="chose-bootstrap">Bootstrap</button>
-
+    <div style="margin-top:48px">
+      <button id="chose-bootstrap">Bootstrap</button>
+    </div>
 
     <script src="sidebar.js"></script>
   </body>

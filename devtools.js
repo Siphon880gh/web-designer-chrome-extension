@@ -1,6 +1,7 @@
 let sidebar = null;
 let swapHTML = null;
 let swapMode = null;
+let insertMode = null;
 let poller = null;
 
 chrome.devtools.panels.elements.createSidebarPane("Bootstrap-Tailwind Templates", (mySidebar) => {
@@ -18,11 +19,13 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
         case "swapHTML":
             swapHTML = request.data;
             swapMode = request.swapMode;
+            insertMode = request.insertMode;
             break;
     }
 }); // addListener
 
 chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
+    // Assure it's an element selection instead of a DevTools item selection
     chrome.devtools.inspectedWindow.eval("$0.outerHTML", (result, isException) => {
         if (isException) {
             return;
@@ -30,19 +33,34 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
             // alert("Error selecting element")
         }
         
-        // chrome.runtime.sendMessage({type:"updateHTMLSelected-success", data: result})
-        // alert("Selected element's outer HTML: " + result)
-
-        // TODO: If a button is pressed at sidebar.js, then run:
         let inspectedWindow = chrome.devtools.inspectedWindow
         poller = setInterval(()=>{
-            console.log(swapMode);
+
+            // Assure the template selected has HTML
             if(swapHTML!==null) {
-                if(swapMode==="outerHTML") {
+                console.log(swapMode);
+               
+                // If appending or prepending, it's to doc body
+                // If swapping, it's to the selected element either innerHTML or outerHTML
+                if(insertMode==="append") {
+                    inspectedWindow.eval(`var div = document.createElement('div'); document.body.append(div); div.outerHTML = '${swapHTML}'; `, (result, isException) => {
+                        if(isException) {
+                            console.log(isException);
+                        }
+                    });
+                } else if (insertMode==="prepend") {
+                    inspectedWindow.eval(`var div = document.createElement('div'); document.body.prepend(div); div.outerHTML = '${swapHTML}'; `, (result, isException) => {
+                        if(isException) {
+                            console.log(isException);
+                        }
+                    });
+                } else if(swapMode==="outerHTML") {
                     inspectedWindow.eval(`$0.outerHTML = '<div>${swapHTML}</div>'`, (result, isException) => {});
-                } else {
+                } else if(swapMode==="innerHTML") {
                     inspectedWindow.eval(`$0.innerHTML = '<div>${swapHTML}</div>'`, (result, isException) => {});
                 }
+                
+                // Reset swapHTML for next selection and template insertion/swap
                 swapHTML = null;
             }
         }, 10);

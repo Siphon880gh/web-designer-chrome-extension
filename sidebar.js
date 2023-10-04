@@ -1,3 +1,11 @@
+const buttons = document.querySelectorAll('button.where-to');
+buttons.forEach(button => {
+  button.addEventListener('click', (ev) => {
+    buttons.forEach(btn => btn.classList.remove('active'));
+    ev.target.classList.add('active');
+  });
+});
+
 document.querySelector("#chose-bootstrap").addEventListener("click", async function() {
     let swapWith = "<div>Bootstrap</div>";
 
@@ -9,5 +17,9 @@ document.querySelector("#chose-bootstrap").addEventListener("click", async funct
     if(!swapMode) swapMode = "outerHTML"; // default
 
     /* Will abandon for a background.js approach */
-    chrome.runtime.sendMessage({type:"swapHTML", data: swapWith, swapMode})
+    // swapMode is innerHTML or outerHTML
+    // insertMode is swapping element, prepending body, or appending body
+    let insertMode = document.querySelector('button.active').dataset.value;
+    console.log({insertMode})
+    chrome.runtime.sendMessage({type:"swapHTML", data: swapWith, swapMode, insertMode})
 });
