@@ -36,14 +36,6 @@
             "matches": ["<all_urls>"],
             "js": ["content-enable-external-img.js"],
             "run_at": "document_start"
-        },
-        {
-            "matches": ["<all_urls>"],
-            "js": ["css-frameworks/bootstrap.bundle.min.js"]
-        },
-        {
-            "matches": ["<all_urls>"],
-            "css": ["css-frameworks/bootstrap.min.css", "css-frameworks/tailwind.min.css"]
         }
     ],
     "devtools_page": "devtools.html"
