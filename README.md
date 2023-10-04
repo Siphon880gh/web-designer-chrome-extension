@@ -1,4 +1,4 @@
-# Web Designer in Chrome Extension
+# Designer and Coder Tools (Chrome Extension)
 
 ![Last Commit](https://img.shields.io/github/last-commit/Siphon880gh/web-designer-chrome-extension)
 <a target="_blank" href="https://github.com/Siphon880gh/stocks-technical-analysis" rel="nofollow"><img src="https://img.shields.io/badge/GitHub--blue?style=social&logo=GitHub" alt="Github" data-canonical-src="https://img.shields.io/badge/GitHub--blue?style=social&logo=GitHub" style="max-width:10ch;"></a>
@@ -9,8 +9,17 @@
 ---
 By Weng Fei Fung. 
 
-Create a website or modify the website you're on by inserting curated Codepen Bootstrap 5 and Tailwind 2 blocks in the comfort of Chrome's Inspect Element. A special sidebar appears as part of DevTools' Elements panel. 
+Various tools to make the web designer and coder's job easier.
 
-Because no additional CSS is required, you can simply copy the HTML of the website you designed.
+Quickly identify the colors, fonts, and spacing amounts of websites. 
 
-For now, you can rearrange the blocks by drag and dropping elements in the Elements panel.
+Design an entirely new website or experiment with modifying the current website's layout inside Chrome with our huge selections of slides and components. You can swap website parts or add to the website from inside DevTools so you don't have to leave the current tab. Because the template code is conveniently in Tailwind 2 and Bootcamp 5, you can copy the produced HTML to another Tailwind/Bootcamp project.
+
+For now, you can rearrange the blocks by drag and dropping elements in the Elements panel. More development if interest in this extension is shown.
+
+## :handshake: Attribution
+Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/ux_1055666?term=design&page=1&position=6&origin=search&related_id=1055666).
+
+
+## :crystal_ball: Future version
+Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.

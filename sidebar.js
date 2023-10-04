@@ -164,8 +164,9 @@ function redrawTemplateList() {
         });
 } // redrawTemplateList
 
-// fetch(chrome.runtime.getURL('templates.html'))
-fetch('https://wengindustry.com/main/engine/chrome-templates/')
+// Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
+fetch(chrome.runtime.getURL('templates.html'))
+// fetch('https://wengindustry.com/main/engine/chrome-templates/?apiKey=chrome-templates')
     .then(response => {
         if(!response.ok) {
             console.error("Error fetching templates.html");

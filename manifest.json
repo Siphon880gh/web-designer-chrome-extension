@@ -1,6 +1,6 @@
 {
-    "name": "Design Tailwind Bootcamp Components into Inspect Element",
-    "description": "Add tailwind and/or bootcamp components into Inspect Elements even if a webpage does not support tailwind. In the future, various components will be selectable.",
+    "name": "Designer and Coder Tools",
+    "description": "By Weng F. Various tools to make the web designer and coder's job easier. Quickly identify the colors, fonts, and spacing amounts of websites. Design an entirely new website or experiment with modifying the current website's layout inside Chrome with our huge selections of slides and components.",
     "manifest_version": 3,
     "version": "1.0",
     "icons": {
