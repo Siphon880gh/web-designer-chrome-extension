@@ -4,17 +4,26 @@
     <meta charset="UTF-8" />
     <title>Swapping Element</title>
     <style>
+      .where-to-tabs {
+        display: flex;
+      }
       button.where-to {
         border: 1px solid rgba(210,210,210,1);
-        background-color: rgba(210,210,210,0.5);
+        border-width: 0 0 1px 0;
+        background-color: white;
+        padding: 5px;
+        padding-bottom: 10px;
+        color: black;
       }
       button.where-to.active {
-        border: 1px solid green;
+        /* border: 1px solid green; */
+        border-width: 1px 1px 0 1px;
+        font-weight:700;
       }
     </style>
   </head>
   <body>
-    <div>
+    <div class="where-to-tabs">
       <button class="where-to active" data-value="swap">Swap Inspected Element</button>
       <button class="where-to" data-value="append">Insert Bottom</button>
       <button class="where-to" data-value="prepend">Insert Top</button>
