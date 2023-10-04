@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Base styling for details */
+        details {
+            border: 1px solid #d3d3d3;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f9f9f9;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Styling for summary */
+        details > summary {
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin: -10px -10px 10px;
+            padding: 10px;
+            background-color: #e2e2e2;
+            list-style: none; /* remove default bullets from li */
+        }
+
+        /* Change the appearance when details is opened */
+        details[open] > summary {
+            border-radius: 4px 4px 0 0;
+            background-color: #c2c2c2;
+        }
+
+        /* Hide default triangle icon in summary */
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Add custom icon for summary */
+        details > summary:before {
+            content: '▶'; /* Right-pointing triangle */
+            margin-right: 10px;
+        }
+
+        details[open] > summary:before {
+            content: '▼'; /* Downward-pointing triangle */
+        }
+
+        /* Style for nested details for a hierarchical view */
+        details > details {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li>Muscle Groups
+            <ul>
+                <li>Chest
+                    <ul>
+                        <li>Pectoralis Major
+                            <ul>
+                                <li>Bench Press</li>
+                                <li>Chest Fly</li>
+                                <li>Incline Bench Press</li>
+                            </ul>
+                        </li>
+                        <li>Pectoralis Minor
+                            <ul>
+                                <li>Dumbbell Pullover</li>
+                                <li>Push-ups</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Back
+                    <ul>
+                        <li>Latissimus Dorsi
+                            <ul>
+                                <li>Pull-ups</li>
+                                <li>Lat Pulldown</li>
+                            </ul>
+                        </li>
+                        <li>Rhomboids
+                            <ul>
+                                <li>Barbell Rows</li>
+                                <li>Face Pulls</li>
+                            </ul>
+                        </li>
+                        <li>Trapezius
+                            <ul>
+                                <li>Shrugs</li>
+                                <li>Upright Rows</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Legs
+                    <ul>
+                        <li>Quadriceps
+                            <ul>
+                                <li>Squats</li>
+                                <li>Leg Press</li>
+                            </ul>
+                        </li>
+                        <li>Hamstrings
+                            <ul>
+                                <li>Deadlifts</li>
+                                <li>Hamstring Curls</li>
+                            </ul>
+                        </li>
+                        <li>Calves
+                            <ul>
+                                <li>Calf Raises</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Shoulders
+                    <ul>
+                        <li>Deltoids
+                            <ul>
+                                <li>Shoulder Press</li>
+                                <li>Lateral Raises</li>
+                                <li>Front Raises</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Arms
+                    <ul>
+                        <li>Biceps
+                            <ul>
+                                <li>Bicep Curls</li>
+                                <li>Hammer Curls</li>
+                            </ul>
+                        </li>
+                        <li>Triceps
+                            <ul>
+                                <li>Tricep Dips</li>
+                                <li>Skull Crushers</li>
+                            </ul>
+                        </li>
+                        <li>Forearms
+                            <ul>
+                                <li>Wrist Curls</li>
+                                <li>Reverse Wrist Curls</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Core
+                    <ul>
+                        <li>Rectus Abdominis
+                            <ul>
+                                <li>Crunches</li>
+                                <li>Leg Raises</li>
+                            </ul>
+                        </li>
+                        <li>Obliques
+                            <ul>
+                                <li>Side Planks</li>
+                                <li>Russian Twists</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Select all list items
+    const liItems = document.querySelectorAll('li');
+
+    liItems.forEach(li => {
+        // Create a new details element
+        const details = document.createElement('details');
+
+        // Create a new summary element and set its content to the first child of the li (should be the text node)
+        const summary = document.createElement('summary');
+        summary.innerHTML = li.firstChild.textContent;
+        details.appendChild(summary);
+
+        // Move all children (except the first one, which is the text) of the li to the details
+        Array.from(li.childNodes).slice(1).forEach(child => {
+            details.appendChild(child);
+        });
+
+        // Replace the li with the details
+        li.parentNode.replaceChild(details, li);
+    });
+});
+    </script>
+</body>
+</html>
