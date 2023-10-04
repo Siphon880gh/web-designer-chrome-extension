@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test</title>
     <style>
         /* Base styling for details */
         details {
@@ -64,7 +64,13 @@
                     <ul>
                         <li>Pectoralis Major
                             <ul>
-                                <li>Bench Press</li>
+                                <li>
+                                    Bench Press
+                                    <script type="text/x-template">
+                                        <textarea id="bootstrap-code"><div>Bootstrap</div></textarea>
+                                    </script>
+
+                                </li>
                                 <li>Chest Fly</li>
                                 <li>Incline Bench Press</li>
                             </ul>
@@ -194,6 +200,50 @@
         // Replace the li with the details
         li.parentNode.replaceChild(details, li);
     });
+
+    const templateControlSlots = document.querySelectorAll('[type="text/x-template"]');
+    templateControlSlots.forEach(templateControlSlot=>{
+        const templateContainer = document.createElement('div');
+        templateContainer.className="template-container"
+        const templateControls = (()=>{
+            let elms = [];
+            elms.push(document.createElement('div'));
+            elms.push(document.createElement('div'));
+
+            var a = document.createElement('div');
+            a.innerHTML = templateControlSlot.innerHTML;
+            a.className = "template-inner-container"
+            // elms[0].innerHTML = templateControlSlot.innerHTML; // script[..template..]'s innerHTML
+            elms[0] = a;
+
+            elms[1].className = "chose-template"
+            elms[1].appendChild((()=>{
+                let elm = document.createElement('span'); // icon
+                elm.className = "icon";
+                elm.style.fontSize = "175%";
+                elm.innerHTML = "➕";
+                return elm;
+            })());
+            elms[1].appendChild((()=>{
+                let elm = document.createElement('br'); // next line
+                return elm;
+            })());
+            elms[1].appendChild((()=>{
+                let elm = document.createElement('span'); // text
+                elm.innerHTML = "Use Template";
+                return elm;
+            })());
+
+            return elms;
+        })()
+        templateContainer.append(...templateControls)
+
+        var parentNode = templateControlSlot.parentNode;
+        var siblingNode = parentNode.children[0];
+        parentNode.insertBefore(templateContainer, templateControlSlot);
+        // templateControlSlot.insertBefore(templateContainer, null);
+        // templateControlSlot.remove();
+    })
 });
     </script>
 </body>

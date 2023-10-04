@@ -61,7 +61,67 @@
       .chose-template:hover .icon {
         filter: invert(1);
       }
+      .template-container {
+        display:flex;
+        justify-content:space-between;
+        width:100%
+      }
+    </style>
+    <style>
+        /* Base styling for details */
+        details {
+            border: 1px solid #d3d3d3;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f9f9f9;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
+        /* Styling for summary */
+        details > summary {
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin: -10px -10px 10px;
+            padding: 10px;
+            background-color: #e2e2e2;
+            list-style: none; /* remove default bullets from li */
+        }
+
+        /* Change the appearance when details is opened */
+        details[open] > summary {
+            border-radius: 4px 4px 0 0;
+            background-color: #c2c2c2;
+        }
+
+        /* Hide default triangle icon in summary */
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Add custom icon for summary */
+        details > summary:before {
+            content: '▶'; /* Right-pointing triangle */
+            margin-right: 10px;
+        }
+
+        details[open] > summary:before {
+            content: '▼'; /* Downward-pointing triangle */
+        }
+
+        /* Style for nested details for a hierarchical view */
+        details > details {
+            /* margin-left: 20px;
+            margin-top: 10px; */
+            margin: 0;
+        }
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
     </style>
   </head>
   <body>
@@ -75,13 +135,7 @@
     </div>
     <div data-tooltip-id="swap"><i>Hint: </i>Swap selected element (from Inspect or the Elements panel)</div>
 
-    <div id="templates" style="margin-top:48px">
-      <div style="display:flex; justify-content:space-between; width:100%">
-        <textarea id="bootstrap-code"><div>Bootstrap</div></textarea>
-        <div class="chose-template">
-          <span class="icon" style="font-size:175%;">➕</span>
-          <br/>Use Template</div>
-        </div>
+    <div id="template-list" style="margin-top:48px">
     </div>
 
     <script src="sidebar.js"></script>
