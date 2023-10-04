@@ -41,8 +41,9 @@ async function useTemplateClicked(ev) {
         templateBtn = templateBtn.closest(".chose-template");
     }
 
-    let templateElm = templateBtn.parentNode.children[0].children[0]; // inner container of the template
-    let swapWith = templateElm.outerHTML;
+    // let templateElm = templateBtn.parentNode.children[0].children[0]; // inner container of the template
+    // let swapWith = templateElm.outerHTML;
+    let swapWith = templateBtn.parentNode.children[0].innerHTML; // inner container of the template
 
     console.log("Sidebar.js will send swapHTML to devTools.js...")
     // console.log(swapWith)
@@ -94,11 +95,11 @@ function redrawTemplateList() {
                 elms.push(document.createElement('div'));
                 elms.push(document.createElement('div'));
     
-                var a = document.createElement('div');
-                a.innerHTML = templateControlSlot.innerHTML;
-                a.className = "template-inner-container"
+                var div = document.createElement('div');
+                div.innerHTML = templateControlSlot.innerHTML;
+                div.className = "template-inner-container"
                 // elms[0].innerHTML = templateControlSlot.innerHTML; // script[..template..]'s innerHTML
-                elms[0] = a;
+                elms[0] = div;
     
                 elms[1].className = "chose-template"
                 elms[1].appendChild((()=>{

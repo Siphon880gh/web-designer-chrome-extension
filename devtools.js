@@ -46,25 +46,25 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
                 // If appending or prepending, it's to doc body
                 // If swapping, it's to the selected element either innerHTML or outerHTML
                 if(insertMode==="append") {
-                    inspectedWindow.eval(`var div = document.createElement('div'); document.body.append(div); div.outerHTML = \`${swapHTML}\`; `, (result, isException) => {
+                    inspectedWindow.eval(`var div = document.createElement('div'); div.className='btw-template'; document.body.append(div); div.outerHTML = \`${swapHTML}\`; `, (result, isException) => {
                         if(isException) {
                             console.log(isException);
                         }
                     });
                 } else if (insertMode==="prepend") {
-                    inspectedWindow.eval(`var div = document.createElement('div'); document.body.prepend(div); div.outerHTML = \`${swapHTML}\`; `, (result, isException) => {
+                    inspectedWindow.eval(`var div = document.createElement('div'); div.className='btw-template'; document.body.prepend(div); div.outerHTML = \`${swapHTML}\`; `, (result, isException) => {
                         if(isException) {
                             console.log(isException);
                         }
                     });
                 } else if(swapMode==="outerHTML") {
-                    inspectedWindow.eval(`$0.outerHTML = \`<div>${swapHTML}</div>\``, (result, isException) => {
+                    inspectedWindow.eval(`$0.outerHTML = \`<div class='btw-template'>${swapHTML}</div>\``, (result, isException) => {
                         if(isException) {
                             console.log(isException);
                         }
                     });
                 } else if(swapMode==="innerHTML") {
-                    inspectedWindow.eval(`$0.innerHTML = \`<div>${swapHTML}</div>\``, (result, isException) => {
+                    inspectedWindow.eval(`$0.innerHTML = \`<div class='btw-template'>${swapHTML}</div>\``, (result, isException) => {
                         if(isException) {
                             console.log(isException);
                         }
