@@ -44,8 +44,8 @@ async function useTemplateClicked(ev) {
     let templateElm = templateBtn.parentNode.children[0].children[0]; // inner container of the template
     let swapWith = templateElm.outerHTML;
 
-    console.log("Swapping to:")
-    console.log(swapWith)
+    console.log("Sidebar.js will send swapHTML to devTools.js...")
+    // console.log(swapWith)
     
     let swapModeWrapper = await chrome.storage.local.get('swapMode');
     let swapMode = swapModeWrapper?.swapMode;
@@ -54,7 +54,7 @@ async function useTemplateClicked(ev) {
     // swapMode is innerHTML or outerHTML
     // insertMode is swapping element, prepending body, or appending body
     let insertMode = document.querySelector('button.active').dataset.value;
-    console.log({insertMode})
+    // console.log({insertMode})
 
     chrome.runtime.sendMessage({type:"swapHTML", data: swapWith, swapMode, insertMode});
 };
