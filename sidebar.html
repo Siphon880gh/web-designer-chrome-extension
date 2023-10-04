@@ -38,36 +38,6 @@
       [data-tooltip-id]:not(.active) {
         opacity:0;
       }
-      .chose-template {
-        color: white;
-        background-color: rgba(60,110,210,0.5);
-        border: rgba(60,110,210,1);
-        padding: 10px;
-        height: 100%;
-        display: flex;
-        flex-flow: column wrap;
-        width: 80px;
-        text-align:center;
-        line-height: 12px;
-        font-weight: 500;
-        color: black;
-        border-top-right-radius: 10px; cursor:pointer;
-        transition: all 300ms;
-      }
-      .chose-template:hover {
-        color: white;
-      }
-      .chose-template .icon {
-        transition: all 300ms;
-      }
-      .chose-template:hover .icon {
-        filter: invert(1);
-      }
-      .template-container {
-        display:flex;
-        justify-content:space-between;
-        width:100%
-      }
     </style>
     <style>
         /* Base styling for details */
@@ -119,10 +89,45 @@
             margin-top: 10px; */
             margin: 0;
         }
+      </style>
+      <style>
+        .chose-template {
+          color: white;
+          background-color: rgba(60,110,210,0.5);
+          border: rgba(60,110,210,1);
+          padding: 10px;
+          height: 100%;
+          display: flex;
+          flex-flow: column wrap;
+          width: 80px;
+          text-align:center;
+          line-height: 12px;
+          font-weight: 500;
+          color: black;
+          border-top-right-radius: 10px; cursor:pointer;
+          transition: all 300ms;
+        }
+        .chose-template:hover {
+          color: white;
+        }
+        .chose-template .icon {
+          transition: all 300ms;
+        }
+        .chose-template:hover .icon {
+          filter: invert(1);
+        }
+        .template-container {
+          display:flex;
+          justify-content:space-between;
+          width:100%
+        }
         ul.template-listing, li.template-listing {
             margin: 0;
             padding: 0;
             list-style: none;
+        }
+        .template-inner-container {
+          transform: scale(.66);
         }
     </style>
   </head>

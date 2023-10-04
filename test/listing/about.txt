@@ -1,0 +1,1 @@
+Convert an easy markup of li, ul's into accordians of details and summary.
