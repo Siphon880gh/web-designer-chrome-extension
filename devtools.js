@@ -223,11 +223,34 @@ chrome.runtime.onConnect.addListener(function(port) {
                         fontElms.push((()=>{
                             var div = document.createElement("div");
                             div.className = "font-row";
+                            div.style.paddingLeft="50px";
+                            div.style.margin = "10px 0";
+                            div.style.lineHeight="20px";
                             
                             // Imperative: Create color text and color swatch. Append each to div.
                             (()=>{
                                 var span = document.createElement("span");
-                                span.textContent = "‣ " + font;
+                                span.innerHTML = "∙ " + (()=>{
+                                    console.log("typeof font", typeof font)
+                                    console.log("font includes comma", font.includes(","))
+                                    var fontNameParts = font.split(",");
+                                    fontNameParts = fontNameParts.map(part=>{ 
+                                        part = part.trim();
+                                        
+                                        var urlPart = "";
+                                        urlPart = part.replaceAll('"', "");
+                                        urlPart = part.replaceAll("'", "");
+                                        urlPart = part.replaceAll("\\", "");
+                                        urlPart = part.replaceAll("/", "");
+                                        urlPart = encodeURIComponent(part);
+
+                                        var aElm = "";
+                                        aElm = `<a href="https://www.google.com/search?q=google+font+${urlPart}" target="_blank">${part}</a>`;
+                                        return aElm;
+                                    }); // map
+                                    var fontNameLinks = fontNameParts.join(", ");
+                                    return fontNameLinks;
+                                })(); // span.innerHTML
                                 return [span]
                             })().forEach(elm=>{
                                 div.append(elm);

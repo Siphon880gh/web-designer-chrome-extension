@@ -22,4 +22,6 @@ Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/
 
 
 ## :crystal_ball: Future version
-Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
+- Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
+- Detect if wordpress, squarespace, wix, etc.
+- Show brand colors first, separator, then all other colors on the website.

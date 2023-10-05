@@ -121,7 +121,9 @@ window.getFonts = async function() {
         option.style.fontFamily = fontFamily;
         select.appendChild(option);
     });
-    document.body.appendChild(select);
+    select.style.overflow = "hidden !important";
+    select.style.width = "100%";
+    document.querySelector("#fonts").insertBefore(select, document.querySelector("#fonts section"));
     
     fontFamilies = Array.from(fontFamilies);
     fontFamilies = fontFamilies.filter(font => font !== 'initial' && font !== 'inherit' && font !== 'unset' );
