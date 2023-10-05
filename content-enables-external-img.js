@@ -1,4 +1,4 @@
-console.log("content-enable-external-img running")
+console.log("content-enables-external-img running")
 
 /** Doesn't work on all websites. 
  * Apple.com still blocks images from your templates from loading, whereas this is effective on bmwusa.com 

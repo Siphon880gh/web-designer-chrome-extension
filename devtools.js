@@ -82,6 +82,7 @@ chrome.devtools.panels.create("Design Guide", "icon.png", "panel.html", panel =>
 
 });
 
+
 /* SECTION: Utilities */
 
 /* Utils */
@@ -128,7 +129,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
 
 
             console.log("devTools.js received swapHTML", swapHTML)
-            break;
+            break; // swapHTML
         case "wipeout":
             console.log("devTools.js wipeout command");
             chrome.devtools.inspectedWindow.eval("document.body.innerHTML = '';", (result, isException) => {
@@ -138,177 +139,135 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
                     // alert("Error selecting element")
                 }
             });
-            break;
+            break; // wipeout
+        case "report-colors":
+            console.log("devTools.js reporting colors into panel.html");
+            console.log(request.data);
+
+            var document = panelWindow.document; // else wont work in setTimeout
+            document.querySelector("#colors section").innerHTML = "";
+
+            var colorElms = [];
+            request.data.forEach(color=>{
+                colorElms.push((()=>{
+                    var div = document.createElement("div");
+                    div.className = "color-row";
+                    
+                    // Imperative: Create color text and color swatch. Append each to div.
+                    (()=>{
+                        var span = document.createElement("span");
+                        span.textContent = color;
+                        var swatch = document.createElement("input");
+                        swatch.type = "color";
+                        swatch.value = colorToValue(color, "hex");
+                        swatch.style.padding = "0"
+                        swatch.style.width = "15px"
+                        swatch.style.height = "15px"
+                        swatch.style.marginLeft = "5px"
+                        swatch.style.display = "inline-block";
+                        return [span, swatch]
+                    })().forEach(elm=>{
+                        div.append(elm);
+                    });
+
+                    return div;
+                })()) // colorElms.push
+            }); // request.data's colors.forEach
+
+            // console.log(colorElms)
+
+            panelWindow.document.querySelector("#colors section").append(...colorElms);
+                
+                
+            break; // report-colors
+        case "report-fonts":
+            console.log("devTools.js reporting fonts into panel.html");
+            console.log(request.data);
+
+            var document = panelWindow.document; // else wont work in setTimeout
+            panelWindow.document.querySelector("#fonts section").innerHTML = "";
+
+            var fontElms = [];
+            request.data.forEach(font=>{
+                fontElms.push((()=>{
+                    var div = document.createElement("div");
+                    div.className = "font-row";
+                    div.style.paddingLeft="50px";
+                    div.style.margin = "10px 0";
+                    div.style.lineHeight="20px";
+                    
+                    // Imperative: Create element that contains comma separated <a> links. Append each element to div.font-row.
+                    (()=>{
+                        var span = document.createElement("span");
+                        span.innerHTML = "∙ " + (()=>{
+                            console.log("typeof font", typeof font)
+                            console.log("font includes comma", font.includes(","))
+                            var fontNameParts = font.split(",");
+                            fontNameParts = fontNameParts.map(part=>{ 
+                                part = part.trim();
+                                
+                                var urlPart = "";
+                                urlPart = part.replaceAll('"', "");
+                                urlPart = part.replaceAll("'", "");
+                                urlPart = part.replaceAll("\\", "");
+                                urlPart = part.replaceAll("/", "");
+                                urlPart = encodeURIComponent(part);
+
+                                var aElm = "";
+                                aElm = `<a href="https://www.google.com/search?q=google+font+${urlPart}" target="_blank">${part}</a>`;
+                                return aElm;
+                            }); // map
+                            var fontNameLinks = fontNameParts.join(", ");
+                            return fontNameLinks;
+                        })(); // span.innerHTML
+                        return [span]
+                    })().forEach(elm=>{
+                        div.append(elm);
+                    });
+
+                    return div;
+                })()) // fontElms.push
+            }); // request.data's fonts.forEach
+
+            // console.log(fontElms)
+
+            panelWindow.document.querySelector("#fonts section").append(...fontElms);
+                    
+            break; // report-fonts
+
+
+            case "report-spaces":
+                console.log("devTools.js reporting spaces into panel.html");
+                console.log(request.data);
+
+                var document = panelWindow.document; // else wont work in setTimeout
+                document.querySelector("#spacing section").innerHTML = "";
+
+                var spaceElms = [];
+                request.data.forEach(space=>{
+                    spaceElms.push((()=>{
+                        var div = document.createElement("div");
+                        div.className = "space-row";
+                        
+                        // Imperative: Create text. Append each to div.
+                        (()=>{
+                            var span = document.createElement("span");
+                            span.textContent = space;
+                            return [span]
+                        })().forEach(elm=>{
+                            div.append(elm);
+                        });
+
+                        return div;
+                    })()) // spaceElms.push
+                }); // request.data's spaces.forEach
+
+                // console.log(spaceElms)
+
+                panelWindow.document.querySelector("#spacing section").append(...spaceElms);
+                        
+                    
+                break; // report-spaces 
     } // switch
 }); // addListener
 
-chrome.runtime.onConnect.addListener(function(port) {
-    console.assert(port.name === "content-script");
-    port.onMessage.addListener(function(request) {
-        switch(request.type) {
-
-            case "report-colors":
-                console.log("devTools.js reporting colors");
-                console.log(request.data);
-
-                setTimeout(()=>{
-                    var document = panelWindow.document; // else wont work in setTimeout
-                    document.querySelector("#colors section").innerHTML = "";
-                    let explanation1 = document.createElement("div");
-                    explanation1.textContent = "By most used";
-                    explanation1.style.marginTop = "-8px";
-
-                    let explanation2 = document.createElement("div");
-                    explanation2.textContent = "Usually first shades, then brand colors, then misc colors";
-                    explanation2.style.fontSize = "10px";
-                    explanation2.style.opacity = "0.8";
-                    explanation2.style.marginTop = "-5px";
-                    explanation2.style.fontWeight = "300";
-                    explanation2.style.marginBottom = "15px";
-
-                    document.querySelector("#colors").insertBefore(explanation2, document.querySelector("#colors section"));
-                    document.querySelector("#colors").insertBefore(explanation1, explanation2);
-
-                    var colorElms = [];
-                    request.data.forEach(color=>{
-                        colorElms.push((()=>{
-                            var div = document.createElement("div");
-                            div.className = "color-row";
-                            
-                            // Imperative: Create color text and color swatch. Append each to div.
-                            (()=>{
-                                var span = document.createElement("span");
-                                span.textContent = color;
-                                var swatch = document.createElement("input");
-                                swatch.type = "color";
-                                swatch.value = colorToValue(color, "hex");
-                                swatch.style.padding = "0"
-                                swatch.style.width = "15px"
-                                swatch.style.height = "15px"
-                                swatch.style.marginLeft = "5px"
-                                swatch.style.display = "inline-block";
-                                return [span, swatch]
-                            })().forEach(elm=>{
-                                div.append(elm);
-                            });
-
-                            return div;
-                        })()) // colorElms.push
-                    }); // request.data's colors.forEach
-
-                    // console.log(colorElms)
-
-                    panelWindow.document.querySelector("#colors section").append(...colorElms);
-                        
-                }, 500);
-                    
-                break; // report-colors
-            case "report-fonts":
-                console.log("devTools.js reporting fonts");
-                console.log(request.data);
-
-                setTimeout(()=>{
-                    panelWindow.document.querySelector("#fonts section").innerHTML = "";
-
-                    var fontElms = [];
-                    request.data.forEach(font=>{
-                        fontElms.push((()=>{
-                            var div = document.createElement("div");
-                            div.className = "font-row";
-                            div.style.paddingLeft="50px";
-                            div.style.margin = "10px 0";
-                            div.style.lineHeight="20px";
-                            
-                            // Imperative: Create element that contains comma separated <a> links. Append each element to div.font-row.
-                            (()=>{
-                                var span = document.createElement("span");
-                                span.innerHTML = "∙ " + (()=>{
-                                    console.log("typeof font", typeof font)
-                                    console.log("font includes comma", font.includes(","))
-                                    var fontNameParts = font.split(",");
-                                    fontNameParts = fontNameParts.map(part=>{ 
-                                        part = part.trim();
-                                        
-                                        var urlPart = "";
-                                        urlPart = part.replaceAll('"', "");
-                                        urlPart = part.replaceAll("'", "");
-                                        urlPart = part.replaceAll("\\", "");
-                                        urlPart = part.replaceAll("/", "");
-                                        urlPart = encodeURIComponent(part);
-
-                                        var aElm = "";
-                                        aElm = `<a href="https://www.google.com/search?q=google+font+${urlPart}" target="_blank">${part}</a>`;
-                                        return aElm;
-                                    }); // map
-                                    var fontNameLinks = fontNameParts.join(", ");
-                                    return fontNameLinks;
-                                })(); // span.innerHTML
-                                return [span]
-                            })().forEach(elm=>{
-                                div.append(elm);
-                            });
-
-                            return div;
-                        })()) // fontElms.push
-                    }); // request.data's fonts.forEach
-
-                    // console.log(fontElms)
-
-                    panelWindow.document.querySelector("#fonts section").append(...fontElms);
-                        
-                }, 500);
-                    
-                break; // report-fonts
-
-
-                case "report-spaces":
-                    console.log("devTools.js reporting spaces");
-                    console.log(request.data);
-    
-                    setTimeout(()=>{
-                        var document = panelWindow.document; // else wont work in setTimeout
-                        document.querySelector("#spacing section").innerHTML = "";
-                        let explanation1 = document.createElement("div");
-                        explanation1.textContent = "By most used";
-                        explanation1.style.marginTop = "-8px";
-    
-                        let explanation2 = document.createElement("div");
-                        explanation2.textContent = "These include paddings, margins; top, right, bottom, left.";
-                        explanation2.style.fontSize = "10px";
-                        explanation2.style.opacity = "0.8";
-                        explanation2.style.marginTop = "-5px";
-                        explanation2.style.fontWeight = "300";
-                        explanation2.style.marginBottom = "15px";
-    
-                        document.querySelector("#spacing").insertBefore(explanation2, document.querySelector("#spacing section"));
-                        document.querySelector("#spacing").insertBefore(explanation1, explanation2);
-    
-                        var spaceElms = [];
-                        request.data.forEach(space=>{
-                            spaceElms.push((()=>{
-                                var div = document.createElement("div");
-                                div.className = "space-row";
-                                
-                                // Imperative: Create text. Append each to div.
-                                (()=>{
-                                    var span = document.createElement("span");
-                                    span.textContent = space;
-                                    return [span]
-                                })().forEach(elm=>{
-                                    div.append(elm);
-                                });
-    
-                                return div;
-                            })()) // spaceElms.push
-                        }); // request.data's spaces.forEach
-    
-                        // console.log(spaceElms)
-    
-                        panelWindow.document.querySelector("#spacing section").append(...spaceElms);
-                            
-                    }, 500);
-                        
-                    break; // report-spaces                
-        } // switch
-    });
-  });

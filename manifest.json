@@ -35,7 +35,7 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content-enable-external-img.js"],
+            "js": ["content-enables-external-img.js"],
             "run_at": "document_start"
         }
     ],
