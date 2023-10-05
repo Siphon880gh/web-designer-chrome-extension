@@ -1,3 +1,5 @@
+/* SECTION: Sidebar.html */
+
 let sidebar = null;
 let swapHTML = null;
 let swapMode = null;
@@ -13,29 +15,6 @@ chrome.devtools.panels.elements.createSidebarPane("Bootstrap-Tailwind Templates"
     });
 }); // created sidebar
 
-
-chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
-    switch(request.type) {
-        case "swapHTML":
-            swapHTML = request.data;
-            swapMode = request.swapMode;
-            insertMode = request.insertMode;
-
-
-            console.log("devTools.js received swapHTML", swapHTML)
-            break;
-        case "wipeout":
-            console.log("devTools.js wipeout command");
-            chrome.devtools.inspectedWindow.eval("document.body.innerHTML = '';", (result, isException) => {
-                if (isException) {
-                    return;
-                    // chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-error", data: result})
-                    // alert("Error selecting element")
-                }
-            });
-            break;
-    }
-}); // addListener
 
 chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
     // Assure it's an element selection instead of a DevTools item selection
@@ -89,3 +68,115 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
 
     });
 });
+
+
+/* SECTION: Panel.html */
+let panelWindow;
+chrome.devtools.panels.create("Design Aspects Identifier", "icon.png", "panel.html", panel => {
+
+    // code invoked on panel creation
+    panel.onShown.addListener((window) => {
+        panelWindow = window;
+        
+            // Get stats
+            // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            //     var currentTab = tabs[0];
+            //     chrome.runtime.sendMessage(
+            //       currentTab.id,
+            //       {type: "getColors"},
+            //       function(response) {
+            //         console.log(response.payload);  // Handle the response from the content script
+            //       }
+            //     );
+            //   });
+
+            // Update panel with stats
+            // panelWindow.document.querySelector("#colors section").append((()=>{
+            //     return document.createElement("div");
+            // })())
+            // panelWindow.document.querySelector("#fonts section").append((()=>{
+            //     return document.createElement("div");
+            // })())
+            // panelWindow.document.querySelector("#spacing section").append((()=>{
+            //     return document.createElement("div");
+            // })())
+    }); // shown panel
+
+});
+
+/* SECTION: Listeners to affect content */
+chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
+    switch(request.type) {
+        case "swapHTML":
+            swapHTML = request.data;
+            swapMode = request.swapMode;
+            insertMode = request.insertMode;
+
+
+            console.log("devTools.js received swapHTML", swapHTML)
+            break;
+        case "wipeout":
+            console.log("devTools.js wipeout command");
+            chrome.devtools.inspectedWindow.eval("document.body.innerHTML = '';", (result, isException) => {
+                if (isException) {
+                    return;
+                    // chrome.runtime.sendMessage({type:"logUpdateHTMLSelected-error", data: result})
+                    // alert("Error selecting element")
+                }
+            });
+            break;
+    } // switch
+}); // addListener
+
+chrome.runtime.onConnect.addListener(function(port) {
+    console.assert(port.name === "content-script");
+    port.onMessage.addListener(function(request) {
+        switch(request.type) {
+
+            case "report-colors":
+                console.log("devTools.js reporting colors");
+                console.log(request.data);
+                // panelWindow.querySelector("#colors section").append((()=>{
+                //     var div = panelWindow.createElement("div");
+                //     div.textContent = request.data;
+                //     return div;
+                // })())
+                setTimeout(()=>{
+                    panelWindow.document.querySelector("#colors section").innerHTML = "";
+
+                        var colorElms = [];
+                        request.data.forEach(color=>{
+                            colorElms.push((()=>{
+                                var div = document.createElement("div");
+                                div.className = "color-row";
+                                
+                                // Imperative: Create color text and color swatch. Append each to div.
+                                (()=>{
+                                    var span = document.createElement("span");
+                                    span.textContent = color;
+                                    var swatch = document.createElement("div");
+                                    swatch.style.width = "15px"
+                                    swatch.style.height = "15px"
+                                    swatch.style.marginLeft = "5px"
+                                    swatch.style.backgroundColor = color;
+                                    swatch.style.display = "inline-block";
+                                    return [span, swatch]
+                                })().forEach(elm=>{
+                                    div.append(elm);
+                                });
+
+                                return div;
+                            })()) // colorElms.push
+                        }); // request.data's colors.forEach
+
+                        console.log(colorElms)
+
+
+                    panelWindow.document.querySelector("#colors section").append(...colorElms);
+                        
+                }, 500);
+                    
+                break;
+        } // switch
+    });
+  });

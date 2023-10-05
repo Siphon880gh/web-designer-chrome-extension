@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Design Aspects Identifier</title>
+    <link href="css-frameworks/bootstrap.min.css" rel="stylesheet">
+    <link href="css-frameworks/tailwind.min.css" rel="stylesheet">
+    <style>
+    .aspect-group {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        height: 100%;
+        min-height:150px;
+        min-width: 150px;
+    }
+    .loading-sprite {
+        font-style: italic;
+        font-weight: 200;
+    }
+    .loading-sprite::before {
+        content: "Loading...";
+    }
+    </style>
+  </head>
+  <body>
+    <h3>Design Aspects Identifier by Weng</h3>
+
+    <div id="aspect-groups" style="margin-top:15px; display:flex; justify-content: flex-start; gap:10px;">
+        <div class="aspect-group" id="colors"><h5>Colors</h5><section><i class="loading-sprite"></i></section></div>
+        <div class="aspect-group" id="fonts"><h5>Font-families</h5><section><i class="loading-sprite"></i></section></div>
+        <div class="aspect-group" id="spacing"><h5>Spacing</h5><section><i class="loading-sprite"></i></section></div>
+    </div>
+
+    <script src="panel.js"></script>
+    <script src="css-frameworks/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
