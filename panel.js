@@ -1,27 +1,27 @@
-window.getColors = function() {
+function removeDuplicatesAndSortByFrequency(arr) {
+
+    // Count frequency of each item
+    const freq = {};
+    for(let i=0; i<arr.length; i++) {
+      let item = arr[i];
+      if(!(item in freq)) {
+        freq[item] = 0; 
+      }
+      freq[item]++;
+    }
+    
+    // Sort by frequency descending
+    arr.sort((a,b) => freq[b] - freq[a]);
+    
+    // Remove duplicates
+    return arr.filter((item, index) => !arr.includes(item, index + 1));
+  
+} // removeDuplicatesAndSortByFrequency
+
+window.getColors = () => {
     let colors = new Array();
     colors.add = colors.push;
     // let colors = new Set();
-
-    function removeDuplicatesAndSortByFrequency(arr) {
-
-        // Count frequency of each item
-        const freq = {};
-        for(let i=0; i<arr.length; i++) {
-          let item = arr[i];
-          if(!(item in freq)) {
-            freq[item] = 0; 
-          }
-          freq[item]++;
-        }
-        
-        // Sort by frequency descending
-        arr.sort((a,b) => freq[b] - freq[a]);
-        
-        // Remove duplicates
-        return arr.filter((item, index) => !arr.includes(item, index + 1));
-      
-    } // removeDuplicatesAndSortByFrequency
 
     // document.styleSheets is a read-only property that returns a StyleSheetList
     // of StyleSheet objects representing the stylesheets applied to a document.
@@ -77,7 +77,7 @@ window.getColors = function() {
     return colors;
 } // getColors
 
-window.getFonts = async function() {
+window.getFonts = async() => {
     let fontFamilies = new Set();
     
     async function parseStyleSheet(sheet) {
@@ -152,9 +152,80 @@ window.getFonts = async function() {
     fontFamilies = fontFamilies.filter(font => font.trim().length>0)
     return fontFamilies;
 } // getFonts
-window.getSpaces = function() {
-    return "";
-}
+
+window.getSpaces = async() => {
+    let stylesUsed = [];
+
+    // Extract values from inline and internal stylesheets
+    for (let sheet of document.styleSheets) {
+        if (sheet.href && sheet.href.startsWith('http')) {
+            try {
+                let response = await fetch(sheet.href);
+                let cssText = await response.text();
+                let blob = new Blob([cssText], { type: 'text/css' });
+                let objectURL = URL.createObjectURL(blob);
+                let tempLink = document.createElement('link');
+                tempLink.rel = 'stylesheet';
+                tempLink.href = objectURL;
+                document.head.appendChild(tempLink);
+                let tempSheet = Array.from(document.styleSheets).pop();
+                extractStylesFromSheet(tempSheet);
+                document.head.removeChild(tempLink);
+                URL.revokeObjectURL(objectURL);
+            } catch (e) {
+                console.warn("Can't fetch the stylesheet of: ", sheet.href, e);
+            }
+        } else {
+            extractStylesFromSheet(sheet);
+        }
+    }
+
+    // Extract values from inline styles
+    document.querySelectorAll('[style]').forEach(elem => {
+        let style = elem.style;
+        for (let prop of ['padding', 'margin']) {
+            for (let dir of ['Top', 'Right', 'Bottom', 'Left']) {
+                let fullProp = `${prop}${dir}`;
+                let value = style[fullProp];
+                if (value) {
+                    stylesUsed.push({ property: fullProp, value: value });
+                }
+            }
+        }
+    });
+
+    // Extract CSS variable values
+    let computedStyle = getComputedStyle(document.documentElement);
+    for (let variable of computedStyle) {
+        if (variable.startsWith('--')) {
+            let value = computedStyle.getPropertyValue(variable);
+            if (value.includes('padding') || value.includes('margin')) {
+                stylesUsed.push({ property: variable, value: value.trim() });
+            }
+        }
+    }
+
+    function extractStylesFromSheet(sheet) {
+        try {
+            for (let rule of sheet.cssRules) {
+                for (let prop of ['padding', 'margin']) {
+                    for (let dir of ['top', 'right', 'bottom', 'left']) {
+                        let fullProp = `${prop}-${dir}`;
+                        let value = rule.style.getPropertyValue(fullProp);
+                        if (value) {
+                            stylesUsed.push({ property: fullProp, value: value });
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn("Can't read the css rules of: ", sheet.href, e);
+        }
+    }
+
+    return stylesUsed;
+} // getSpaces
+
 
 const port = chrome.runtime.connect({name: "content-script"});
 
@@ -168,4 +239,36 @@ port.postMessage({type: "report-colors", data: getColors() });
     });
 })();
 
-// chrome.runtime.sendMessage({type:"report-colors", data: getColors()});
+// Send spacing report
+(()=>{
+    getSpaces().then(stylesUsed=>{
+
+        // function extractAndSortValues
+        // [{ paddingTop="5px"}, {paddingRight="10px"}] => ["5px", "10px"]
+        function extractAndSortValues(stylesUsed) {
+            // Extract values
+            let values = stylesUsed.map(style => style.value);
+        
+            // Sort values
+            values.sort((a, b) => {
+                // Convert values like "10px" to integers for comparison
+                let numA = parseInt(a, 10);
+                let numB = parseInt(b, 10);
+        
+                // Handle cases where values are not in px or other units
+                if (isNaN(numA) || isNaN(numB)) {
+                    return a.localeCompare(b);
+                }
+        
+                return numA - numB;
+            });
+        
+            return values;
+        } // extractAndSortValues
+
+        let spaces = extractAndSortValues(stylesUsed);
+        spaces = removeDuplicatesAndSortByFrequency(spaces);
+
+        port.postMessage({type: "report-spaces", data: spaces });
+    });
+})();

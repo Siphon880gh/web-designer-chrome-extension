@@ -78,28 +78,6 @@ chrome.devtools.panels.create("Design Guide", "icon.png", "panel.html", panel =>
     panel.onShown.addListener((window) => {
         panelWindow = window;
         
-            // Get stats
-            // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            //     var currentTab = tabs[0];
-            //     chrome.runtime.sendMessage(
-            //       currentTab.id,
-            //       {type: "getColors"},
-            //       function(response) {
-            //         console.log(response.payload);  // Handle the response from the content script
-            //       }
-            //     );
-            //   });
-
-            // Update panel with stats
-            // panelWindow.document.querySelector("#colors section").append((()=>{
-            //     return document.createElement("div");
-            // })())
-            // panelWindow.document.querySelector("#fonts section").append((()=>{
-            //     return document.createElement("div");
-            // })())
-            // panelWindow.document.querySelector("#spacing section").append((()=>{
-            //     return document.createElement("div");
-            // })())
     }); // shown panel
 
 });
@@ -186,6 +164,7 @@ chrome.runtime.onConnect.addListener(function(port) {
                     explanation2.style.opacity = "0.8";
                     explanation2.style.marginTop = "-5px";
                     explanation2.style.fontWeight = "300";
+                    explanation2.style.marginBottom = "15px";
 
                     document.querySelector("#colors").insertBefore(explanation2, document.querySelector("#colors section"));
                     document.querySelector("#colors").insertBefore(explanation1, explanation2);
@@ -219,7 +198,6 @@ chrome.runtime.onConnect.addListener(function(port) {
 
                     // console.log(colorElms)
 
-
                     panelWindow.document.querySelector("#colors section").append(...colorElms);
                         
                 }, 500);
@@ -241,7 +219,7 @@ chrome.runtime.onConnect.addListener(function(port) {
                             div.style.margin = "10px 0";
                             div.style.lineHeight="20px";
                             
-                            // Imperative: Create color text and color swatch. Append each to div.
+                            // Imperative: Create element that contains comma separated <a> links. Append each element to div.font-row.
                             (()=>{
                                 var span = document.createElement("span");
                                 span.innerHTML = "∙ " + (()=>{
@@ -281,6 +259,56 @@ chrome.runtime.onConnect.addListener(function(port) {
                 }, 500);
                     
                 break; // report-fonts
+
+
+                case "report-spaces":
+                    console.log("devTools.js reporting spaces");
+                    console.log(request.data);
+    
+                    setTimeout(()=>{
+                        var document = panelWindow.document; // else wont work in setTimeout
+                        document.querySelector("#spacing section").innerHTML = "";
+                        let explanation1 = document.createElement("div");
+                        explanation1.textContent = "By most used";
+                        explanation1.style.marginTop = "-8px";
+    
+                        let explanation2 = document.createElement("div");
+                        explanation2.textContent = "These include paddings, margins; top, right, bottom, left.";
+                        explanation2.style.fontSize = "10px";
+                        explanation2.style.opacity = "0.8";
+                        explanation2.style.marginTop = "-5px";
+                        explanation2.style.fontWeight = "300";
+                        explanation2.style.marginBottom = "15px";
+    
+                        document.querySelector("#spacing").insertBefore(explanation2, document.querySelector("#spacing section"));
+                        document.querySelector("#spacing").insertBefore(explanation1, explanation2);
+    
+                        var spaceElms = [];
+                        request.data.forEach(space=>{
+                            spaceElms.push((()=>{
+                                var div = document.createElement("div");
+                                div.className = "space-row";
+                                
+                                // Imperative: Create text. Append each to div.
+                                (()=>{
+                                    var span = document.createElement("span");
+                                    span.textContent = space;
+                                    return [span]
+                                })().forEach(elm=>{
+                                    div.append(elm);
+                                });
+    
+                                return div;
+                            })()) // spaceElms.push
+                        }); // request.data's spaces.forEach
+    
+                        // console.log(spaceElms)
+    
+                        panelWindow.document.querySelector("#spacing section").append(...spaceElms);
+                            
+                    }, 500);
+                        
+                    break; // report-spaces                
         } // switch
     });
   });
