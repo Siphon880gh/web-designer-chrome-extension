@@ -156,51 +156,53 @@ window.getFonts = async() => {
 window.getSpaces = async() => {
     let stylesUsed = [];
 
+    // Get the root font size
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
     // Extract values from inline and internal stylesheets
-    for (let sheet of document.styleSheets) {
-        if (sheet.href && sheet.href.startsWith('http')) {
-            try {
-                let response = await fetch(sheet.href);
-                let cssText = await response.text();
-                let blob = new Blob([cssText], { type: 'text/css' });
-                let objectURL = URL.createObjectURL(blob);
-                let tempLink = document.createElement('link');
-                tempLink.rel = 'stylesheet';
-                tempLink.href = objectURL;
-                document.head.appendChild(tempLink);
-                let tempSheet = Array.from(document.styleSheets).pop();
-                extractStylesFromSheet(tempSheet);
-                document.head.removeChild(tempLink);
-                URL.revokeObjectURL(objectURL);
-            } catch (e) {
-                console.warn("Can't fetch the stylesheet of: ", sheet.href, e);
-            }
-        } else {
-            extractStylesFromSheet(sheet);
-        }
-    }
+    await extractFromStylesheets();
 
     // Extract values from inline styles
     document.querySelectorAll('[style]').forEach(elem => {
-        let style = elem.style;
+        extractStylesFromElement(elem);
+    });
+
+    // Extract computed styles from all elements
+    document.querySelectorAll('*').forEach(elem => {
+        let computedStyle = getComputedStyle(elem);
         for (let prop of ['padding', 'margin']) {
             for (let dir of ['Top', 'Right', 'Bottom', 'Left']) {
                 let fullProp = `${prop}${dir}`;
-                let value = style[fullProp];
-                if (value) {
-                    stylesUsed.push({ property: fullProp, value: value });
+                let value = computedStyle[fullProp];
+                if (value && value !== '0px') {
+                    let relativeValue = convertToRelative(value);
+                    stylesUsed.push(`${value} (${relativeValue})`);
                 }
             }
         }
     });
 
-    // Extract CSS variable values
-    let computedStyle = getComputedStyle(document.documentElement);
-    for (let variable of computedStyle) {
-        if (variable.startsWith('--')) {
-            let value = computedStyle.getPropertyValue(variable);
-            if (value.includes('padding') || value.includes('margin')) {
-                stylesUsed.push({ property: variable, value: value.trim() });
+    async function extractFromStylesheets() {
+        for (let sheet of document.styleSheets) {
+            if (sheet.href && sheet.href.startsWith('http')) {
+                try {
+                    let response = await fetch(sheet.href);
+                    let cssText = await response.text();
+                    let blob = new Blob([cssText], { type: 'text/css' });
+                    let objectURL = URL.createObjectURL(blob);
+                    let tempLink = document.createElement('link');
+                    tempLink.rel = 'stylesheet';
+                    tempLink.href = objectURL;
+                    document.head.appendChild(tempLink);
+                    let tempSheet = Array.from(document.styleSheets).pop();
+                    extractStylesFromSheet(tempSheet);
+                    document.head.removeChild(tempLink);
+                    URL.revokeObjectURL(objectURL);
+                } catch (e) {
+                    console.warn("Can't fetch the stylesheet of: ", sheet.href, e);
+                }
+            } else {
+                extractStylesFromSheet(sheet);
             }
         }
     }
@@ -209,11 +211,19 @@ window.getSpaces = async() => {
         try {
             for (let rule of sheet.cssRules) {
                 for (let prop of ['padding', 'margin']) {
+                    let shorthandValue = rule.style.getPropertyValue(prop);
+                    if (shorthandValue) {
+                        shorthandValue.split(' ').forEach(val => {
+                            let relativeValue = convertToRelative(val);
+                            stylesUsed.push(`${val} (${relativeValue})`);
+                        });
+                    }
                     for (let dir of ['top', 'right', 'bottom', 'left']) {
                         let fullProp = `${prop}-${dir}`;
                         let value = rule.style.getPropertyValue(fullProp);
                         if (value) {
-                            stylesUsed.push({ property: fullProp, value: value });
+                            let relativeValue = convertToRelative(value);
+                            stylesUsed.push(`${value} (${relativeValue})`);
                         }
                     }
                 }
@@ -223,8 +233,43 @@ window.getSpaces = async() => {
         }
     }
 
+    function extractStylesFromElement(elem) {
+        let style = elem.style;
+        for (let prop of ['padding', 'margin']) {
+            let shorthandValue = style.getPropertyValue(prop);
+            if (shorthandValue) {
+                shorthandValue.split(' ').forEach(val => {
+                    let relativeValue = convertToRelative(val);
+                    stylesUsed.push(`${val} (${relativeValue})`);
+                });
+            }
+            for (let dir of ['Top', 'Right', 'Bottom', 'Left']) {
+                let fullProp = `${prop}${dir}`;
+                let value = style[fullProp];
+                if (value) {
+                    let relativeValue = convertToRelative(value);
+                    stylesUsed.push(`${value} (${relativeValue})`);
+                }
+            }
+        }
+    }
+
+    function convertToRelative(value) {
+        if (value.endsWith('px')) {
+            let numericValue = parseFloat(value);
+            if (!isNaN(numericValue)) {
+                return `${numericValue / rootFontSize}rem`;
+            }
+        } else if (value.endsWith('%')) {
+            return value; // Percentage values are already relative
+        }
+        return value; // Return original value if it can't be converted
+    }
+
     return stylesUsed;
-} // getSpaces
+}
+
+
 
 
 const port = chrome.runtime.connect({name: "content-script"});
@@ -243,31 +288,7 @@ port.postMessage({type: "report-colors", data: getColors() });
 (()=>{
     getSpaces().then(stylesUsed=>{
 
-        // function extractAndSortValues
-        // [{ paddingTop="5px"}, {paddingRight="10px"}] => ["5px", "10px"]
-        function extractAndSortValues(stylesUsed) {
-            // Extract values
-            let values = stylesUsed.map(style => style.value);
-        
-            // Sort values
-            values.sort((a, b) => {
-                // Convert values like "10px" to integers for comparison
-                let numA = parseInt(a, 10);
-                let numB = parseInt(b, 10);
-        
-                // Handle cases where values are not in px or other units
-                if (isNaN(numA) || isNaN(numB)) {
-                    return a.localeCompare(b);
-                }
-        
-                return numA - numB;
-            });
-        
-            return values;
-        } // extractAndSortValues
-
-        let spaces = extractAndSortValues(stylesUsed);
-        spaces = removeDuplicatesAndSortByFrequency(spaces);
+        spaces = removeDuplicatesAndSortByFrequency(stylesUsed);
 
         port.postMessage({type: "report-spaces", data: spaces });
     });

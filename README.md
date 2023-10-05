@@ -17,6 +17,22 @@ Design an entirely new website or experiment with modifying the current website'
 
 For now, you can rearrange the blocks by drag and dropping elements in the Elements panel. More development if interest in this extension is shown.
 
+## :open_file_folder: Table of Contents:
+---
+- [Description](#page_facing_up-description)
+- [Screenshots](#camera-screenshots)
+- [Attribution](#handshake-attribution)
+- [Future Version](#crystal_ball-future-version)
+---
+
+## :camera: Screenshots:
+#### Design Guide Generator
+![image](readme-assets/Design-Guide-Generator.png)
+#### Template Swapper or Site Builder
+![image](readme-assets/Template-Swapper-or-Site-Builder.png)
+#### Settings
+<img alt="Settings screenshot" src="readme-assets/Settings.png" style="width:350px; height:150px;">
+
 ## :handshake: Attribution
 Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/ux_1055666?term=design&page=1&position=6&origin=search&related_id=1055666).
 
@@ -24,4 +40,3 @@ Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/
 ## :crystal_ball: Future version
 - Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
 - Detect if wordpress, squarespace, wix, etc.
-- Show brand colors first, separator, then all other colors on the website.
