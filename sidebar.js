@@ -50,11 +50,11 @@ async function useTemplateClicked(ev) {
             let tab = tabs[0];
             chrome.scripting.insertCSS({
               target: {tabId: tab.id},
-              files: ['css-frameworks/bootstrap.min.css', 'css-frameworks/tailwind.min.css']
+              files: ['assets-framework-css/bootstrap.min.css', 'assets-framework-css/tailwind.min.css']
             });
             chrome.scripting.executeScript({
                 target: {tabId: tab.id},
-                files: ['css-frameworks/bootstrap.bundle.min.js']
+                files: ['assets-framework-css/bootstrap.bundle.min.js']
               });
             // alert("CSS and JS injected for Bootstrap 5 / Tailwind 2!")
           });
