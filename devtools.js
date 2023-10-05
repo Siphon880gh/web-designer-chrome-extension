@@ -174,36 +174,50 @@ chrome.runtime.onConnect.addListener(function(port) {
                 console.log(request.data);
 
                 setTimeout(()=>{
-                    panelWindow.document.querySelector("#colors section").innerHTML = "";
+                    var document = panelWindow.document; // else wont work in setTimeout
+                    document.querySelector("#colors section").innerHTML = "";
+                    let explanation1 = document.createElement("div");
+                    explanation1.textContent = "By most used";
+                    explanation1.style.marginTop = "-8px";
 
-                        var colorElms = [];
-                        request.data.forEach(color=>{
-                            colorElms.push((()=>{
-                                var div = document.createElement("div");
-                                div.className = "color-row";
-                                
-                                // Imperative: Create color text and color swatch. Append each to div.
-                                (()=>{
-                                    var span = document.createElement("span");
-                                    span.textContent = color;
-                                    var swatch = document.createElement("input");
-                                    swatch.type = "color";
-                                    swatch.value = colorToValue(color, "hex");
-                                    swatch.style.padding = "0"
-                                    swatch.style.width = "15px"
-                                    swatch.style.height = "15px"
-                                    swatch.style.marginLeft = "5px"
-                                    swatch.style.display = "inline-block";
-                                    return [span, swatch]
-                                })().forEach(elm=>{
-                                    div.append(elm);
-                                });
+                    let explanation2 = document.createElement("div");
+                    explanation2.textContent = "Usually first shades, then brand colors, then misc colors";
+                    explanation2.style.fontSize = "10px";
+                    explanation2.style.opacity = "0.8";
+                    explanation2.style.marginTop = "-5px";
+                    explanation2.style.fontWeight = "300";
 
-                                return div;
-                            })()) // colorElms.push
-                        }); // request.data's colors.forEach
+                    document.querySelector("#colors").insertBefore(explanation2, document.querySelector("#colors section"));
+                    document.querySelector("#colors").insertBefore(explanation1, explanation2);
 
-                        // console.log(colorElms)
+                    var colorElms = [];
+                    request.data.forEach(color=>{
+                        colorElms.push((()=>{
+                            var div = document.createElement("div");
+                            div.className = "color-row";
+                            
+                            // Imperative: Create color text and color swatch. Append each to div.
+                            (()=>{
+                                var span = document.createElement("span");
+                                span.textContent = color;
+                                var swatch = document.createElement("input");
+                                swatch.type = "color";
+                                swatch.value = colorToValue(color, "hex");
+                                swatch.style.padding = "0"
+                                swatch.style.width = "15px"
+                                swatch.style.height = "15px"
+                                swatch.style.marginLeft = "5px"
+                                swatch.style.display = "inline-block";
+                                return [span, swatch]
+                            })().forEach(elm=>{
+                                div.append(elm);
+                            });
+
+                            return div;
+                        })()) // colorElms.push
+                    }); // request.data's colors.forEach
+
+                    // console.log(colorElms)
 
 
                     panelWindow.document.querySelector("#colors section").append(...colorElms);

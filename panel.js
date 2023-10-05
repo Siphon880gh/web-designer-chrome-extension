@@ -1,5 +1,27 @@
 window.getColors = function() {
-    let colors = new Set();
+    let colors = new Array();
+    colors.add = colors.push;
+    // let colors = new Set();
+
+    function removeDuplicatesAndSortByFrequency(arr) {
+
+        // Count frequency of each item
+        const freq = {};
+        for(let i=0; i<arr.length; i++) {
+          let item = arr[i];
+          if(!(item in freq)) {
+            freq[item] = 0; 
+          }
+          freq[item]++;
+        }
+        
+        // Sort by frequency descending
+        arr.sort((a,b) => freq[b] - freq[a]);
+        
+        // Remove duplicates
+        return arr.filter((item, index) => !arr.includes(item, index + 1));
+      
+    } // removeDuplicatesAndSortByFrequency
 
     // document.styleSheets is a read-only property that returns a StyleSheetList
     // of StyleSheet objects representing the stylesheets applied to a document.
@@ -45,14 +67,13 @@ window.getColors = function() {
         }
     }
 
-    // Filter out 'transparent' and 'rgba(0, 0, 0, 0)' values
-    colors.delete('transparent');
-    colors.delete('rgba(0, 0, 0, 0)');
-
     colors = Array.from(colors);
-    colors = colors.filter(color => color !== 'transparent' && color !== 'initial' && color !== 'inherit' && color !== 'unset' );
+    colors = colors.filter(color => color !== 'transparent' && color !== 'rgba(0, 0, 0, 0)' && color !== 'currentcolor' && color !== 'initial' && color !== 'inherit' && color !== 'unset' );
     colors = colors.filter(color => !color.includes("var("))
     colors = colors.filter(color => color.trim().length>0)
+    colors = colors.sort();
+
+    colors = removeDuplicatesAndSortByFrequency(colors);
     return colors;
 } // getColors
 
@@ -61,18 +82,18 @@ window.getFonts = async function() {
     
     async function parseStyleSheet(sheet) {
         for (const rule of sheet.cssRules) {
-        if (rule instanceof CSSStyleRule && rule.style.fontFamily) {
-            fontFamilies.add(rule.style.fontFamily);
-        } 
-        // Handling @font-face rule here.
-        else if (rule instanceof CSSFontFaceRule && rule.style.fontFamily) {
-            fontFamilies.add(rule.style.fontFamily);
-        } 
-        // Handling @import rule here.
-        else if (rule instanceof CSSImportRule && rule.styleSheet) {
-            await parseStyleSheet(rule.styleSheet);
-        }
-        }
+            if (rule instanceof CSSStyleRule && rule.style.fontFamily) {
+                fontFamilies.add(rule.style.fontFamily);
+            } 
+            // Handling @font-face rule here.
+            else if (rule instanceof CSSFontFaceRule && rule.style.fontFamily) {
+                fontFamilies.add(rule.style.fontFamily);
+            } 
+            // Handling @import rule here.
+            else if (rule instanceof CSSImportRule && rule.styleSheet) {
+                await parseStyleSheet(rule.styleSheet);
+            }
+        } // for
     }
     
     // Extract from inline styles and internal style blocks
