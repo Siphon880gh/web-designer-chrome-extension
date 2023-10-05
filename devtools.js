@@ -6,7 +6,7 @@ let swapMode = null;
 let insertMode = null;
 let poller = null;
 
-chrome.devtools.panels.elements.createSidebarPane("Bootstrap-Tailwind Templates", (mySidebar) => {
+chrome.devtools.panels.elements.createSidebarPane("Design Templates", (mySidebar) => {
     sidebar = mySidebar;
     mySidebar.setPage('sidebar.html')
 
@@ -72,7 +72,7 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
 
 /* SECTION: Panel.html */
 let panelWindow;
-chrome.devtools.panels.create("Design Aspects Identifier", "icon.png", "panel.html", panel => {
+chrome.devtools.panels.create("Design Guide", "icon.png", "panel.html", panel => {
 
     // code invoked on panel creation
     panel.onShown.addListener((window) => {
@@ -203,14 +203,47 @@ chrome.runtime.onConnect.addListener(function(port) {
                             })()) // colorElms.push
                         }); // request.data's colors.forEach
 
-                        console.log(colorElms)
+                        // console.log(colorElms)
 
 
                     panelWindow.document.querySelector("#colors section").append(...colorElms);
                         
                 }, 500);
                     
-                break;
+                break; // report-colors
+            case "report-fonts":
+                console.log("devTools.js reporting fonts");
+                console.log(request.data);
+
+                setTimeout(()=>{
+                    panelWindow.document.querySelector("#fonts section").innerHTML = "";
+
+                    var fontElms = [];
+                    request.data.forEach(font=>{
+                        fontElms.push((()=>{
+                            var div = document.createElement("div");
+                            div.className = "font-row";
+                            
+                            // Imperative: Create color text and color swatch. Append each to div.
+                            (()=>{
+                                var span = document.createElement("span");
+                                span.textContent = "‣ " + font;
+                                return [span]
+                            })().forEach(elm=>{
+                                div.append(elm);
+                            });
+
+                            return div;
+                        })()) // fontElms.push
+                    }); // request.data's fonts.forEach
+
+                    // console.log(fontElms)
+
+                    panelWindow.document.querySelector("#fonts section").append(...fontElms);
+                        
+                }, 500);
+                    
+                break; // report-fonts
         } // switch
     });
   });
