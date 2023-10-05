@@ -27,7 +27,7 @@ For now, you can rearrange the blocks by drag and dropping elements in the Eleme
 
 ## :camera: Screenshots:
 #### Design Guide Generator
-![image](readme-assets/Design-Guide-Generator.png)
+![image](readme-assets/Design-Guide-Generator1.png)
 #### Template Swapper or Site Builder
 ![image](readme-assets/Template-Swapper-or-Site-Builder.png)
 #### Settings
