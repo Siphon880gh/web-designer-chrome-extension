@@ -104,6 +104,42 @@ chrome.devtools.panels.create("Design Aspects Identifier", "icon.png", "panel.ht
 
 });
 
+/* SECTION: Utilities */
+
+/* Utils */
+function colorToValue(colorName, format = 'rgb') {
+    var document = panelWindow.document; // else wont work in DevTools
+
+    // Create a temporary div to use the browser's color parsing
+    let tempDiv = document.createElement('div');
+    tempDiv.style.display = 'none';
+    tempDiv.style.color = colorName;
+    document.body.appendChild(tempDiv);
+
+    // Get computed color
+    let computedColor = window.getComputedStyle(tempDiv).color;
+
+    // Cleanup
+    document.body.removeChild(tempDiv);
+
+    // Parse RGB values
+    let matches = computedColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    if (!matches) return null;
+
+    let [_, r, g, b] = matches.map(Number);
+
+    switch (format) {
+        case 'hex':
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+        case 'rgb':
+            return `rgb(${r}, ${g}, ${b})`;
+        case 'rgba':
+            return `rgba(${r}, ${g}, ${b}, 1)`;
+        default:
+            return null;
+    }
+} // colorToValue
+
 /* SECTION: Listeners to affect content */
 chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
     switch(request.type) {
@@ -136,11 +172,7 @@ chrome.runtime.onConnect.addListener(function(port) {
             case "report-colors":
                 console.log("devTools.js reporting colors");
                 console.log(request.data);
-                // panelWindow.querySelector("#colors section").append((()=>{
-                //     var div = panelWindow.createElement("div");
-                //     div.textContent = request.data;
-                //     return div;
-                // })())
+
                 setTimeout(()=>{
                     panelWindow.document.querySelector("#colors section").innerHTML = "";
 
@@ -154,11 +186,13 @@ chrome.runtime.onConnect.addListener(function(port) {
                                 (()=>{
                                     var span = document.createElement("span");
                                     span.textContent = color;
-                                    var swatch = document.createElement("div");
+                                    var swatch = document.createElement("input");
+                                    swatch.type = "color";
+                                    swatch.value = colorToValue(color, "hex");
+                                    swatch.style.padding = "0"
                                     swatch.style.width = "15px"
                                     swatch.style.height = "15px"
                                     swatch.style.marginLeft = "5px"
-                                    swatch.style.backgroundColor = color;
                                     swatch.style.display = "inline-block";
                                     return [span, swatch]
                                 })().forEach(elm=>{
