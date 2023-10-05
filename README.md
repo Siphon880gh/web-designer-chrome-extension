@@ -31,7 +31,7 @@ For now, you can rearrange the blocks by drag and dropping elements in the Eleme
 #### Template Swapper or Site Builder
 ![image](readme-assets/Template-Swapper-or-Site-Builder.png)
 #### Settings
-<img alt="Settings screenshot" src="readme-assets/Settings.png" style="width:350px; height:150px;">
+<img alt="Settings screenshot" src="readme-assets/Settings.png" style="width:350px; height:150px; border:1px solid black;">
 
 ## :handshake: Attribution
 Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/ux_1055666?term=design&page=1&position=6&origin=search&related_id=1055666).
@@ -39,4 +39,5 @@ Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/
 
 ## :crystal_ball: Future version
 - Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
+- The paid version will connect to an API like https://###...com/main/engine/chrome-templates/ and checks your license code
 - Detect if wordpress, squarespace, wix, etc.
