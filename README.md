@@ -15,7 +15,7 @@ Quickly identify the colors, fonts, and spacing amounts of websites.
 
 Design an entirely new website or experiment with modifying the current website's layout inside Chrome with our huge selections of slides and components. You can swap website parts or add to the website from inside DevTools so you don't have to leave the current tab. Because the template code is conveniently in Tailwind 2 and Bootcamp 5, you can copy the produced HTML to another Tailwind/Bootcamp project.
 
-For now, you can rearrange the blocks by drag and dropping elements in the Elements panel. More development if interest in this extension is shown.
+Font Awesome 3-6 icons supported in the templates. For rearranging blocks, for now you have to drag and drop elements in the Elements panel. More development if interest in this extension is shown.
 
 ## :open_file_folder: Table of Contents:
 ---
