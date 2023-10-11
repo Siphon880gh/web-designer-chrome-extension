@@ -52,6 +52,16 @@ async function useTemplateClicked(ev) {
               target: {tabId: tab.id},
               files: ['assets-framework-css/bootstrap.min.css', 'assets-framework-css/tailwind.min.css']
             });
+            chrome.scripting.insertCSS({
+                target: {tabId: tab.id},
+                files: [
+                    'assets-framework-css/font-awesome-v3.2.1.min.css', 
+                    'assets-framework-css/font-awesome-v4.7.0.min.css',
+                    'assets-framework-css/font-awesome-v5.13.1.min.css',
+                    'assets-framework-css/font-awesome-v6.4.0.min.css'
+                ]
+              });     
+
             chrome.scripting.executeScript({
                 target: {tabId: tab.id},
                 files: ['assets-framework-css/bootstrap.bundle.min.js']
