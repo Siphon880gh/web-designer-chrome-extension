@@ -78,7 +78,17 @@ async function useTemplateClicked(ev) {
 
     // let templateElm = templateBtn.parentNode.children[0].children[0]; // inner container of the template
     // let swapWith = templateElm.outerHTML;
-    let swapWith = templateBtn.parentNode.children[0].innerHTML; // inner container of the template
+    debugger;
+    let swapWith = (()=>{
+        if(!templateBtn.parentNode.children[0].className.includes("code")) {
+            
+            return templateBtn.parentNode.children[0].innerHTML; // inner container of the template
+        } else {
+            
+            return templateBtn.parentNode.children[0].value; // it's a textarea where you can type in custom code
+        }
+
+    })()
 
     console.log("Sidebar.js will send swapHTML to devTools.js...")
     // console.log(swapWith)
@@ -96,11 +106,10 @@ async function useTemplateClicked(ev) {
 };
 
 // load templates
-
 function redrawTemplateList() {
         // Select all list items
 
-        const liItems = document.querySelectorAll('li');
+        const liItems = document.querySelectorAll('#template-list li');
     
         liItems.forEach(li => {
             li.classList.add('template-listing');
@@ -174,7 +183,12 @@ function redrawTemplateList() {
         });
 } // redrawTemplateList
 
+
+// Enter your own custom code to swap / insert
+document.querySelector("#template-coder .chose-template.code").addEventListener('click', useTemplateClicked);
+
 // Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
+// Likely connects to external server for premium templates
 fetch(chrome.runtime.getURL('templates.html'))
 // fetch('https://wengindustry.com/main/engine/chrome-templates/?apiKey=chrome-templates')
     .then(response => {

@@ -1,167 +1,205 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Swapping Element</title>
-    <link href="assets-framework-css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets-framework-css/tailwind.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding: 10px;
-      }
-      #wipeout {
-        border:0;
-      }
-      .where-to-tabs {
-        display: flex;
-        width:100%;
-        justify-content:flex-start;
-      }
-      button.where-to {
-        border: 1px solid rgba(210,210,210,1);
-        border-width: 0 0 1px 0;
-        background-color: white;
-        padding: 5px;
-        padding-bottom: 10px;
-        color: black;
-        width: 280px;
-        height: 70px;
-        z-index: 2;
-      }
-      button.where-to.active {
-        /* border: 1px solid green; */
-        border-width: 1px 1px 0 1px;
-        font-weight:700;
-      }
-      .where-to-spacer {
-        border: 1px solid rgba(210,210,210,1);
-        border-width: 0 0 1px 0;
-        width: 100%;
-      }
-      [data-tooltip-id] {
-        transition: all 300ms;
-      }
-      [data-tooltip-id]:not(.active) {
-        max-height: 0;
-        overflow: hidden;
-      }
-    </style>
-    <style>
-        /* Base styling for details */
-        details {
-            border: 1px solid #d3d3d3;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 4px;
-            background: #f9f9f9;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
 
-        /* Styling for summary */
-        details > summary {
-            font-weight: bold;
-            cursor: pointer;
-            outline: none;
-            margin: -10px -10px 10px;
-            padding: 10px;
-            background-color: #e2e2e2;
-            list-style: none; /* remove default bullets from li */
-        }
+<head>
+  <meta charset="UTF-8" />
+  <title>Swapping Element</title>
+  <link href="assets-framework-css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets-framework-css/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 10px;
+    }
 
-        /* Change the appearance when details is opened */
-        details[open] > summary {
-            border-radius: 4px 4px 0 0;
-            background-color: #c2c2c2;
-        }
+    #wipeout {
+      border: 0;
+    }
 
-        /* Hide default triangle icon in summary */
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
+    .where-to-tabs {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+    }
 
-        /* Add custom icon for summary */
-        details > summary:before {
-            content: '▶'; /* Right-pointing triangle */
-            margin-right: 10px;
-        }
+    button.where-to {
+      border: 1px solid rgba(210, 210, 210, 1);
+      border-width: 0 0 1px 0;
+      background-color: white;
+      padding: 5px;
+      padding-bottom: 10px;
+      color: black;
+      width: 280px;
+      height: 70px;
+      z-index: 2;
+    }
 
-        details[open] > summary:before {
-            content: '▼'; /* Downward-pointing triangle */
-        }
+    button.where-to.active {
+      /* border: 1px solid green; */
+      border-width: 1px 1px 0 1px;
+      font-weight: 700;
+    }
 
-        /* Style for nested details for a hierarchical view */
-        details > details {
-            /* margin-left: 20px;
+    .where-to-spacer {
+      border: 1px solid rgba(210, 210, 210, 1);
+      border-width: 0 0 1px 0;
+      width: 100%;
+    }
+
+    [data-tooltip-id] {
+      transition: all 300ms;
+    }
+
+    [data-tooltip-id]:not(.active) {
+      max-height: 0;
+      overflow: hidden;
+    }
+  </style>
+  <style>
+    /* Base styling for details */
+    details {
+      border: 1px solid #d3d3d3;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+      background: #f9f9f9;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    /* Styling for summary */
+    details>summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+      margin: -10px -10px 10px;
+      padding: 10px;
+      background-color: #e2e2e2;
+      list-style: none;
+      /* remove default bullets from li */
+    }
+
+    /* Change the appearance when details is opened */
+    details[open]>summary {
+      border-radius: 4px 4px 0 0;
+      background-color: #c2c2c2;
+    }
+
+    /* Hide default triangle icon in summary */
+    details>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Add custom icon for summary */
+    details>summary:before {
+      content: '▶';
+      /* Right-pointing triangle */
+      margin-right: 10px;
+    }
+
+    details[open]>summary:before {
+      content: '▼';
+      /* Downward-pointing triangle */
+    }
+
+    /* Style for nested details for a hierarchical view */
+    details>details {
+      /* margin-left: 20px;
             margin-top: 10px; */
-            margin: 0;
-        }
-      </style>
-      <style>
-        .chose-template {
-          position: sticky;
-          top: 0;
-          right: 0;
-          color: white;
-          background-color: rgba(60,110,210,0.5);
-          border: rgba(60,110,210,1);
-          padding: 10px;
-          height: 100%;
-          display: flex;
-          flex-flow: column wrap;
-          width: 80px;
-          text-align:center;
-          line-height: 12px;
-          font-weight: 500;
-          color: black;
-          border-top-right-radius: 10px; cursor:pointer;
-          transition: all 300ms;
-        }
-        .chose-template:hover {
-          color: white;
-        }
-        .chose-template .icon {
-          transition: all 300ms;
-        }
-        .chose-template:hover .icon {
-          filter: invert(1);
-        }
-        .template-container {
-          display:flex;
-          justify-content:space-between;
-          width:100%
-        }
-        ul.template-listing, li.template-listing {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        .template-inner-container {
-          transform: scale(.66);
-          /* margin-top: -44%; */
-          transform-origin: center top;
-        }
-    </style>
-  </head>
-  <body>
-    <h3>Template Swapper by Weng</h3>
-    <div>Supports: Bootstrap v5.2.3 and Tailwind v2.2.19</div>
-    <div>Prefer to <button id="wipeout">wipe</button> the page?</div>
+      margin: 0;
+    }
+  </style>
+  <style>
+    .chose-template {
+      position: sticky;
+      top: 0;
+      right: 0;
+      color: white;
+      background-color: rgba(60, 110, 210, 0.5);
+      border: rgba(60, 110, 210, 1);
+      padding: 10px;
+      height: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      width: 80px;
+      text-align: center;
+      line-height: 12px;
+      font-weight: 500;
+      color: black;
+      border-top-right-radius: 10px;
+      cursor: pointer;
+      transition: all 300ms;
+    }
 
-    <div class="where-to-tabs" style="margin-top:30px;">
-      <button class="where-to active" data-value="swap">
-        <span data-tooltip-target="swap">Swap Selected...</span>
-      </button>
-      <button class="where-to" data-value="append">Insert Bottom</button>
-      <button class="where-to" data-value="prepend">Insert Top</button>
-      <div class="where-to-spacer"></div>
-    </div>
-    <div data-tooltip-id="swap"><i>Hint: </i>Swap selected element (from Inspect or the Elements panel)</div>
+    .chose-template:hover {
+      color: white;
+    }
 
-    <div id="template-list" style="margin-top:15px">
-    </div>
+    .chose-template .icon {
+      transition: all 300ms;
+    }
 
-    <script src="sidebar.js"></script>
-    <script src="assets-framework-css/bootstrap.bundle.min.js"></script>
-  </body>
+    .chose-template:hover .icon {
+      filter: invert(1);
+    }
+
+    .template-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%
+    }
+
+    ul.template-listing,
+    li.template-listing,
+    ul.template-coder,
+    li.template-coder {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .template-inner-container:not(.code) {
+      transform: scale(.66);
+      transform-origin: center top;
+    }
+    .template-inner-container.code {
+      width: 80%;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Template Swapper by Weng</h3>
+  <div>Supports: Bootstrap v5.2.3 and Tailwind v2.2.19</div>
+  <div>Prefer to <button id="wipeout">wipe</button> the page?</div>
+
+  <div class="where-to-tabs" style="margin-top:30px;">
+    <button class="where-to active" data-value="swap">
+      <span data-tooltip-target="swap">Swap Selected...</span>
+    </button>
+    <button class="where-to" data-value="append">Insert Bottom</button>
+    <button class="where-to" data-value="prepend">Insert Top</button>
+    <div class="where-to-spacer"></div>
+  </div>
+  <div data-tooltip-id="swap"><i>Hint: </i>Swap selected element (from Inspect or the Elements panel)</div>
+
+  <div id="template-coder" style="margin-top:15px">
+    <details>
+      <summary>Custom Code
+      </summary>
+      <div class="template-container">
+          <textarea class="template-inner-container code"></textarea>
+          <div class="chose-template code">
+            <span class="icon" style="font-size: 175%;">➕</span><br>
+            <span>Use Template</span></div>
+          </div>
+      </div>
+    </details> <!---->
+  </div>
+  <div id="template-list" style="margin-top:0">
+  </div>
+
+  <script src="sidebar.js"></script>
+  <script src="assets-framework-css/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
