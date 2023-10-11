@@ -52,15 +52,16 @@ async function useTemplateClicked(ev) {
               target: {tabId: tab.id},
               files: ['assets-framework-css/bootstrap.min.css', 'assets-framework-css/tailwind.min.css']
             });
-            chrome.scripting.insertCSS({
-                target: {tabId: tab.id},
-                files: [
-                    'assets-framework-css/font-awesome-v3.2.1.min.css', 
-                    'assets-framework-css/font-awesome-v4.7.0.min.css',
-                    'assets-framework-css/font-awesome-v5.13.1.min.css',
-                    'assets-framework-css/font-awesome-v6.4.0.min.css'
-                ]
-              });     
+
+            // chrome.scripting.insertCSS({
+            //     target: {tabId: tab.id},
+            //     files: [
+            //         'assets-framework-css/fa/font-awesome-v3.2.1.min.css', 
+            //         'assets-framework-css/fa/font-awesome-v4.7.0.min.css',
+            //         'assets-framework-css/fa/font-awesome-v5.13.1.min.css',
+            //         'assets-framework-css/fa/font-awesome-v6.4.0.min.css'
+            //     ]
+            //   });     
 
             chrome.scripting.executeScript({
                 target: {tabId: tab.id},
@@ -194,7 +195,9 @@ function redrawTemplateList() {
 
 
 // Enter your own custom code to swap / insert
-document.querySelector("#template-coder .chose-template.code").addEventListener('click', useTemplateClicked);
+document.querySelectorAll("#template-coder .chose-template.code").forEach(btnUseCode=>{
+    btnUseCode.addEventListener('click', useTemplateClicked);
+})
 
 // Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
 // Likely connects to external server for premium templates
