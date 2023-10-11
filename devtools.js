@@ -30,7 +30,8 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener((info) => {
 
             // Assure the template selected has HTML
             if(swapHTML!==null) {
-                console.log(swapMode);
+                console.log({swapMode});
+                console.log({insertMode});
                
                 // If appending or prepending, it's to doc body
                 // If swapping, it's to the selected element either innerHTML or outerHTML
@@ -127,6 +128,8 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             swapMode = request.swapMode;
             insertMode = request.insertMode;
 
+            console.log({swapMode});
+            console.log({insertMode});
 
             console.log("devTools.js received swapHTML", swapHTML)
             break; // swapHTML

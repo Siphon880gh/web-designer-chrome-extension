@@ -39,5 +39,11 @@
             "run_at": "document_start"
         }
     ],
+    "web_accessible_resources": [
+        {
+          "resources": ["webfonts/*", "fonts/*", "font/*", "assets-framework-css/*", "assets-icons/*", "https://fonts.googleapis.com/*", "*"],
+          "matches": ["<all_urls>"]
+        }
+      ],
     "devtools_page": "devtools.html"
 }

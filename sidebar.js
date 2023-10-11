@@ -78,7 +78,6 @@ async function useTemplateClicked(ev) {
 
     // let templateElm = templateBtn.parentNode.children[0].children[0]; // inner container of the template
     // let swapWith = templateElm.outerHTML;
-    debugger;
     let swapWith = (()=>{
         if(!templateBtn.parentNode.children[0].className.includes("code")) {
             
@@ -113,21 +112,31 @@ function redrawTemplateList() {
     
         liItems.forEach(li => {
             li.classList.add('template-listing');
-            // Create a new details element
-            const details = document.createElement('details');
     
-            // Create a new summary element and set its content to the first child of the li (should be the text node)
+            // Create a new summary element and set its content to the first child of the li (should be the text node, eg. <li>Chart Summary)
+            // This is for presentation to the user
             const summary = document.createElement('summary');
             summary.innerHTML = li.firstChild.textContent;
+            li.firstChild.remove();
+
+            // Create a new details element that will show the summary tagline and carry toggleable information
+            const details = document.createElement('details');
+            li.prepend(details) // prepend because below siblings will be moved into details
+
+            // Fill in the details that have a summary tagline and the rest of the contents that toggle on and off (1 and 2)
+            // 1.
             details.appendChild(summary);
     
-            // Move all children (except the first one, which is the text) of the li to the details
+            // 2.
+            // Move all of <li>'s siblings that are below the first sibling (which is <details>). 
+            // You move into details because they will be the rest of the details body that are toggeable.
             Array.from(li.childNodes).slice(1).forEach(child => {
                 details.appendChild(child);
             });
     
             // Replace the li with the details
-            li.parentNode.replaceChild(details, li);
+            // li.parentNode.replaceChild(details, li);
+            // li.parentNode.append()
         });
     
         const templateControlSlots = document.querySelectorAll('[type="text/x-template"]');
