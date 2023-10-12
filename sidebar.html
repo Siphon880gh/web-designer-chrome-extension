@@ -6,6 +6,8 @@
   <title>Swapping Element</title>
   <link href="assets-framework-css/bootstrap.min.css" rel="stylesheet">
   <link href="assets-framework-css/tailwind.min.css" rel="stylesheet">
+  <!-- fa-switcher will change font awesome version depending on template name having FA3, FA4, etc -->
+  <link id="fa-switcher" data-fa="FA6" href="assets-framework-css/fa/font-awesome-v6.4.0.min.css" rel="stylesheet">
   <style>
     body {
       padding: 10px;
@@ -184,15 +186,46 @@
 
   <div id="template-coder" style="margin-top:15px">
     <details>
-      <summary>Custom Code
+      <summary>Template Code
       </summary>
       <ul class="template-listing code">
         <li>
           <details>
-            <summary>Custom Code A1
+            <summary>Custom Code
             </summary>
             <div class="template-container">
-                <textarea class="template-inner-container code"></textarea>
+                <textarea class="template-inner-container code" placeholder="Insert code you found on Codepen, JSFiddle, etc, or your own code."></textarea>
+                <div class="chose-template code">
+                  <span class="icon" style="font-size: 175%;">➕</span><br>
+                  <span>Use Template</span>
+                </div>
+            </div>
+          </details> <!---->
+        </li>
+        <li>
+          <details>
+            <summary>Tailwind CSS 2.2.19
+            </summary>
+            <div class="template-container">
+                <textarea class="template-inner-container code">
+                  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+                </textarea>
+                <div class="chose-template code">
+                  <span class="icon" style="font-size: 175%;">➕</span><br>
+                  <span>Use Template</span>
+                </div>
+            </div>
+          </details> <!---->
+        </li>
+        <li>
+          <details>
+            <summary>Bootstrap 5.2.3
+            </summary>
+            <div class="template-container">
+                <textarea class="template-inner-container code">
+                  <!-- Bootstrap CSS -->
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+                </textarea>
                 <div class="chose-template code">
                   <span class="icon" style="font-size: 175%;">➕</span><br>
                   <span>Use Template</span>
@@ -205,14 +238,62 @@
             <summary>Font Awesome 6
             </summary>
             <div class="template-container">
-                <textarea class="template-inner-container code"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></textarea>
+                <textarea class="template-inner-container code">
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                </textarea>
                 <div class="chose-template code">
                   <span class="icon" style="font-size: 175%;">➕</span><br>
-                  <span>Use Template</span></div>
+                  <span>Use Template</span>
                 </div>
             </div>
           </details> <!---->
         </li>
+
+        <li>
+          <details>
+            <summary>Font Awesome 5
+            </summary>
+            <div class="template-container">
+                <textarea class="template-inner-container code">
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+                </textarea>
+                <div class="chose-template code">
+                  <span class="icon" style="font-size: 175%;">➕</span><br>
+                  <span>Use Template</span>
+                </div>
+            </div>
+          </details> <!---->
+        </li>
+        <li>
+          <details>
+            <summary>Font Awesome 4
+            </summary>
+            <div class="template-container">
+                <textarea class="template-inner-container code">
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                </textarea>
+                <div class="chose-template code">
+                  <span class="icon" style="font-size: 175%;">➕</span><br>
+                  <span>Use Template</span>
+                </div>
+            </div>
+          </details> <!---->
+        </li>
+        <li>
+          <details>
+            <summary>Font Awesome 3
+            </summary>
+            <div class="template-container">
+                <textarea class="template-inner-container code">
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.min.css">
+                </textarea>
+                <div class="chose-template code">
+                  <span class="icon" style="font-size: 175%;">➕</span><br>
+                  <span>Use Template</span>
+                </div>
+            </div>
+          </details> <!---->
+        </li>                
       </ul>
     </details> <!---->
   </div> <!-- template-coder -->

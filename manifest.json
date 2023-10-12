@@ -10,7 +10,7 @@
         "128": "assets-icons/icon128x128.png"
     },
     "content_security_policy": {
-        "extension_pages": "default-src 'self'; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' *; connect-src 'self' https://wengindustry.com"
+        "extension_pages": "default-src 'self' https://cdnjs.cloudflare.com http://cdnjs.cloudflare.com; script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com http://cdnjs.cloudflare.com; img-src 'self' *; connect-src 'self' https://wengindustry.com http://wengindustry.com"
     },
     "permissions": [
         "activeTab",
@@ -23,6 +23,7 @@
         "webRequest"
       ],
     "host_permissions": [
+        "https://cdnjs.cloudflare.com/*/*/*/*/*/*",
         "https://wengindustry.com/",
         "http://*/*",
         "https://*/*",
@@ -41,7 +42,14 @@
     ],
     "web_accessible_resources": [
         {
-          "resources": ["assets-framework-css/*", "assets-icons/*", "https://fonts.googleapis.com/*", "*"],
+          "resources": [
+                        "assets-icons/*", 
+                        "assets-framework-css/*",
+                        "assets-framework-css/*/*",
+                        "assets-framework-css/*/*/*",
+                        "assets-framework-css/*/*/*/*",
+                        "https://fonts.googleapis.com/*", 
+                        "*"],
           "matches": ["<all_urls>"]
         }
       ],

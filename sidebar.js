@@ -194,6 +194,33 @@ function redrawTemplateList() {
 } // redrawTemplateList
 
 
+function enableFASwitcher() {
+    document.querySelectorAll("details").forEach(switcher=>{
+        switcher.addEventListener("toggle", function(ev) {
+            const tagLine = switcher.innerText.toUpperCase().replaceAll("-","");
+            const sideBarFA = document.querySelector("#fa-switcher"); // <link id="fa-switcher" data-fa="FA6" href="..." rel="stylesheet">
+            const sideBarFATag = sideBarFA.dataset.fa;
+            if(tagLine.includes("FA6")) {
+                if(sideBarFATag!=="FA6") {
+                    sideBarFA.href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+                }
+            } else if(tagLine.includes("FA5")) {
+                if(sideBarFATag!=="FA5") {
+                    sideBarFA.href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css";
+                }
+            } else if(tagLine.includes("FA4")) {
+                if(sideBarFATag!=="FA4") {
+                    sideBarFA.href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+                }
+            } else if(tagLine.includes("FA3")) {
+                if(sideBarFATag!=="FA3") {
+                    sideBarFA.href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.min.css";
+                }
+            } // elseif
+        });
+    });
+} // enableFASwitcher
+
 // Enter your own custom code to swap / insert
 document.querySelectorAll("#template-coder .chose-template.code").forEach(btnUseCode=>{
     btnUseCode.addEventListener('click', useTemplateClicked);
@@ -214,5 +241,6 @@ fetch(chrome.runtime.getURL('templates.html'))
     .then(html => {
         document.querySelector("#template-list").innerHTML = html;
         redrawTemplateList();
+        enableFASwitcher();
     })
 
