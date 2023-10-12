@@ -73,6 +73,8 @@ Which could cause it to be too far from the left or the top. You can additionall
 
 You can inspect the sidebar to see what most templates are scaled at.
 
+Your template script block can contain style blocks inside, but keep in mind that the style block does not override your other templates' styles which can affect their appearance in the sidebar or on the content page.
+
 ## :crystal_ball: Future version
 - Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
 - The paid version will connect to an API like https://###...com/main/engine/chrome-templates/ and checks your license code
