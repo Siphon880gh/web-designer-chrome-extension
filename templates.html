@@ -132,6 +132,286 @@
       </li>
     </ul>
   </li>
+  <li>Impression
+    <ul>
+      <li>Hero slide with 1-4 slides
+        <script type="text/x-template" data-scale=".25" data-margin-left="-50%">
+        <!-- Project Name: Landing Page Using SwiperJS
+        Youtube: https://youtube.com/@devRasen
+        Copyright: ©MdRasen 
+        Derived theme: https://codepen.io/MdRasen/pen/gOZEGwW
+        -->
+        <div class="container">
+          <!-- Side infos -->
+          <div class="side-info">
+            <span>discover</span>
+            <h1>Your Dream Cars</h1>
+            <hr>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione porro iure autem distinctio delectus mollitia fugiat voluptate, placeat, quas facilis corporis deserunt, laudantium illo totam magnam eum? Nam, quam perferendis.</p>
+            <a href="#">Browse More</a>
+          </div>
+          <!-- Swiper slider -->
+          <div class="swiper">
+            <div class="swiper-wrapper" style="display: flex;">
+              <!-- Content 1 -->
+              <div class="swiper-slide slide-one">
+                <div>
+                  <h2>Car 01</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
+                    nemo eveniet delectus obcaecati dolorem at, cumque deleniti sint
+                    laborum adipisci quis aut consequuntur eum?
+                  </p>
+                  <a href="#">View Detail</a>
+                </div>
+              </div>
+              <!-- Content 2 -->
+              <div class="swiper-slide slide-two">
+                <div>
+                  <h2>Car 02</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
+                    nemo eveniet delectus obcaecati dolorem at, cumque deleniti sint
+                    laborum adipisci quis aut consequuntur eum?
+                  </p>
+                  <a href="#">View Detail</a>
+                </div>
+              </div>
+              <!-- Content 3 -->
+              <div class="swiper-slide slide-three">
+                <div>
+                  <h2>Car 03</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
+                    nemo eveniet delectus obcaecati dolorem at, cumque deleniti sint
+                    laborum adipisci quis aut consequuntur eum?
+                  </p>
+                  <a href="#">View Detail</a>
+                </div>
+              </div>
+              <!-- Content 4 -->
+              <div class="swiper-slide slide-four">
+                <div>
+                  <h2>Car 04</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
+                    nemo eveniet delectus obcaecati dolorem at, cumque deleniti sint
+                    laborum adipisci quis aut consequuntur eum?
+                  </p>
+                  <a href="#">View Detail</a>
+                </div>
+              </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>          
+          <style>
+            /* Project Name: Landing Page Using SwiperJS
+            Youtube: https://youtube.com/@devRasen
+            Copyright: ©MdRasen */
+            
+            /* Google Font */
+            @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500;900&display=swap");
+            
+            /* General CSS */
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: "Open Sans", sans-serif;
+            }
+            
+            /* Custom CSS */
+            .container {
+              width: 100%;
+              min-height: 100vh;
+              column-gap: 40px;
+              padding: 60px 6%;
+            }
+            
+            .container .side-info {
+              margin: 20px 0;
+            }
+            
+            .container .side-info span {
+              text-transform: uppercase;
+              letter-spacing: 1.5px;
+              font-size: 16px;
+              color: #717171;
+            }
+            
+            .container .side-info h1 {
+              text-transform: capitalize;
+              letter-spacing: 0.8px;
+              font-family: "Roboto", sans-serif;
+              font-weight: 900;
+              font-size: 56px;
+              background-color: #005baa;
+              background-image: linear-gradient(45deg, #005baa, #000000);
+              background-size: 100%;
+              background-repeat: repeat;
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              -moz-background-clip: text;
+              -moz-text-fill-color: transparent;
+            }
+            
+            .container .side-info hr {
+              display: block;
+              background: #005baa;
+              height: 4px;
+              width: 20%;
+              margin: 18px 0;
+            }
+            
+            .container a {
+              display: inline-block;
+              text-decoration: none;
+              text-transform: uppercase;
+              color: #717171;
+              font-weight: 500;
+              background: #fff;
+              border-radius: 50px;
+              border: 2px solid #c2c2c2;
+              padding: 8px 16px;
+              margin-top: 20px;
+              transition: 0.3s ease-in-out;
+            }
+            
+            .container a:hover {
+              border: 2px solid #005baa;
+              color: #005baa;
+            }
+            
+            .container .swiper {
+              width: 100%;
+              max-width: 100%;
+              overflow: scroll;
+            }
+            
+            .swiper-pagination-bullet,
+            .swiper-pagination-bullet-active {
+              background: #fff;
+            }
+            
+            .swiper-pagination {
+              bottom: 20px !important;
+            }
+            
+            .swiper-slide {
+              width: 300px;
+              height: 450px;
+              display: flex;
+              flex-direction: column;
+              justify-content: end;
+              align-items: self-start;
+            }
+            
+            .swiper-slide h2 {
+              color: #fff;
+              font-family: "Roboto", sans-serif;
+              font-weight: 400;
+              font-size: 22px;
+              line-height: 1.4;
+              margin-bottom: 10px;
+              padding: 0 0 0 24px;
+              text-transform: uppercase;
+            }
+            
+            .swiper-slide p {
+              color: #dadada;
+              font-family: "Roboto", sans-serif;
+              font-weight: 300;
+              padding: 0 24px;
+              font-size: 12px;
+              display: -webkit-box;
+              -webkit-line-clamp: 4;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+            
+            .swiper-slide a {
+              margin: 20px 25px 50px !important;
+              padding: 8px 16px !important;
+              font-size: 14px;
+              border: none;
+            }
+            
+            .swiper-slide a:hover {
+              border: none;
+            }
+            
+            .swiper-slide div {
+              display: none;
+              opacity: 0;
+              padding-bottom: 10px;
+            }
+            
+            .swiper-slide-active div {
+              display: block;
+              opacity: 1;
+            }
+            
+            .slide-one {
+              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car1.jpg?raw=true) no-repeat 50% 50% / cover;
+            }
+            
+            .slide-two {
+              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car2.jpg?raw=true) no-repeat 50% 50% / cover;
+            }
+            
+            .slide-three {
+              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car3.jpg?raw=true) no-repeat 50% 50% / cover;
+            }
+            
+            .slide-four {
+              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car4.jpg?raw=true) no-repeat 50% 50% / cover;
+            }
+            
+            @media screen AND (max-width:1020px) {
+                .swiper-slide.slide-three {
+                    display:none;
+                }
+            }
+            @media screen AND (max-width:830px) {
+                .swiper-slide.slide-three,
+                .swiper-slide.slide-two {
+                    display:none;
+                }
+            }
+
+            /* Responsive Design */
+            @media (min-width: 800px) {
+              .container {
+                display: flex;
+                align-items: center;
+              }
+            
+              .container .side-info {
+                margin-bottom: 20px;
+              }
+            }
+            
+            @media (max-width: 500px) {
+              .container .side-info h1 {
+                font-size: 46px;
+              }
+            
+              .container .side-info p {
+                font-size: 14px;
+              }
+            }
+          </style>
+        </script>
+      </li>
+    </ul>
+  </li>
   <li>Options
     <ul>
       <li>Three options

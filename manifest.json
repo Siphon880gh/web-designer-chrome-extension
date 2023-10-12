@@ -23,7 +23,7 @@
         "webRequest"
       ],
     "host_permissions": [
-        "https://cdnjs.cloudflare.com/*/*/*/*/*/*",
+        "https://cdnjs.cloudflare.com/",
         "https://wengindustry.com/",
         "http://*/*",
         "https://*/*",

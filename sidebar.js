@@ -151,6 +151,15 @@ function redrawTemplateList() {
     
                 var div = document.createElement('div');
                 div.innerHTML = templateControlSlot.innerHTML;
+                if(templateControlSlot.dataset.scale) {
+                    div.style.transform = `scale(${templateControlSlot.dataset.scale})`;
+                }
+                if(templateControlSlot.dataset.marginLeft) {
+                    div.style.marginLeft = templateControlSlot.dataset.marginLeft;
+                }
+                if(templateControlSlot.dataset.marginTop) {
+                    div.style.marginTop = templateControlSlot.dataset.marginTop;
+                }
                 div.className = "template-inner-container"
                 // elms[0].innerHTML = templateControlSlot.innerHTML; // script[..template..]'s innerHTML
                 elms[0] = div;

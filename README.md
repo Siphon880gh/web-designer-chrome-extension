@@ -22,12 +22,15 @@ Font Awesome 3-6 icons supported in the templates. For rearranging blocks, for n
 - [Description](#page_facing_up-description)
 - [Screenshots](#camera-screenshots)
 - [Attribution](#handshake-attribution)
+- [Developer Notes](#computer-developer-notes)
 - [Future Version](#crystal_ball-future-version)
 ---
 
 ## :camera: Screenshots:
+
 #### Design Guide Generator
 ![image](assets-readme/Design-Guide-Generator1.png)
+
 #### Template Swapper or Site Builder
 ![image](assets-readme/Template-Swapper-or-Site-Builder.png)
 #### Settings
@@ -36,6 +39,39 @@ Font Awesome 3-6 icons supported in the templates. For rearranging blocks, for n
 ## :handshake: Attribution
 Thanks to Freepik at Flaticon for the [icon](https://www.flaticon.com/free-icon/ux_1055666?term=design&page=1&position=6&origin=search&related_id=1055666).
 
+
+## :computer: Developer Notes
+
+To add more templates, add them to templates.html, unless they are textarea code that can easily be modified before inserting, then thoes go inside sidebar.html
+
+The pattern is such (because code inside a script tag of type x-template will not be executed): 
+```
+<li>Name
+    <script type="text/x-template" data-scale=".25">
+    Your template whether bootstrap or tailwind
+    </script>
+</li>
+```
+
+If you have nested, you may do
+```
+<ul>
+    <li>Name
+        <script...>
+    </li>
+    <li>Name
+        <script...>
+    </li>
+</ul>
+```
+
+If the template is too large for the sidebar, you can resize it down at the script tag.
+`<script type="text/x-template" data-scale=".25">`
+
+Which could cause it to be too far from the left or the top. You can additionally adjust like:
+`<script type="text/x-template" data-scale=".25" data-margin-left="-50%" data-margin-top="-10px">`
+
+You can inspect the sidebar to see what most templates are scaled at.
 
 ## :crystal_ball: Future version
 - Future version will have paid tier with premium templates, personally modified template variations, and AI-filler with brand colors/fonts and content, if enough interest in this feature is shown.
