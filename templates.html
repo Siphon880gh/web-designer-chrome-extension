@@ -1,8 +1,8 @@
 <ul>
-  <li>Components
+  <li>COMPONENTS
     <ul>
       <li>Progress Bar
-          <script type="text/x-template">
+        <script type="text/x-template">
             <div class="w-screen bg-gray-200 mx-auto rounded-lg overflow-hidden border border-gray-300 fixed bottom-0 left-0">
               <div class="bg-green-500 text-xs leading-none py-1" style="width: 33%"></div>
             </div>
@@ -107,7 +107,48 @@
       </li> <!---->
     </ul>
   </li>
-  <li>Forms
+  <li>Feature Options
+    <ul>
+      <li>Three options
+        <script type="text/x-template">
+            <div class="bg-gray-100 p-8 height-full">
+              <h1 class="text-2xl font-bold mb-6">Choose a narration style:</h1>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Option 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="text-center">
+                    <i class="fas fa-user-friends text-4xl text-gray-700 mb-4"></i>
+                    <h2 class="font-semibold text-xl mb-4">Narrate with loved one's voice</h2>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
+                  </div>
+                </div>
+                
+                <!-- Option 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="text-center">
+                    <i class="fas fa-microphone text-4xl text-gray-700 mb-4"></i>
+                    <h2 class="font-semibold text-xl mb-4">Narrate with your voice</h2>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
+                  </div>
+                </div>
+                
+                <!-- Option 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="text-center">
+                    <i class="fas fa-users text-4xl text-gray-700 mb-4"></i>
+                    <h2 class="font-semibold text-xl mb-4">Narrate from our selected voices</h2>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </script>
+      </li>
+    </ul>
+  </li>
+  <li>FORMS
     <ul>
       <li>Different input sources (FA5)
         <script type="text/x-template">
@@ -143,8 +184,51 @@
       </li>
     </ul>
   </li>
-  <li>Impression
+  <li>LAYOUTS
     <ul>
+      <li>Centered vertical navigation
+        <script type="text/x-template" data-scale=".80" data-margin-top="80px">
+            <section class="h-screen flex items-center justify-center">
+              <div class="rounded-xl shadow-md w-96 bg-gray-100 transform -translate-y-1/2">
+                  <h1 class="text-3xl text-center text-whitep-3 tracking-wide font-medium text-white bg-gray-400 opacity-80 p-0 m-0 pt-4 pb-4 mb-8 rounded-tl-lg rounded-tr-lg">
+                  Internal Tests
+                  </h1>
+      
+                  <nav class="mt-6 mb-6">
+                      <ul class="list-none p-0 m-0 flex flex-col items-center">
+      
+                          <li class="list-none p-0 m-0 mb-8">
+                              <a href="#">
+                                  Link 1
+                              </a>
+                          </li>
+      
+                          <li class="list-none p-0 m-0 mb-8">
+                              <a href="#">
+                                  Link 2
+                              </a>
+                          </li>
+      
+                          <li class="list-none p-0 m-0 mb-8">
+                              <a href="#">
+                                  Link 3
+                              </a>
+                          </li>
+      
+      
+                          <li class="list-none p-0 m-0 mb-8">
+                              <a href="#">
+                                  Link 4
+                              </a>
+                          </li>
+                      </ul>
+                  </nav>
+      
+              </div>
+          </section>
+        </script>
+      </li>
+
       <li>Hero slide with 1-4 slides
         <script type="text/x-template" data-scale=".25" data-margin-left="-50%">
         <!-- Project Name: Landing Page Using SwiperJS
@@ -158,7 +242,9 @@
             <span>discover</span>
             <h1>Your Dream Cars</h1>
             <hr>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione porro iure autem distinctio delectus mollitia fugiat voluptate, placeat, quas facilis corporis deserunt, laudantium illo totam magnam eum? Nam, quam perferendis.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione porro iure autem distinctio delectus
+              mollitia fugiat voluptate, placeat, quas facilis corporis deserunt, laudantium illo totam magnam eum? Nam,
+              quam perferendis.</p>
             <a href="#">Browse More</a>
           </div>
           <!-- Swiper slider -->
@@ -216,252 +302,213 @@
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
           </div>
-        </div>          
-          <style>
-            /* Project Name: Landing Page Using SwiperJS
+        </div>
+        <style>
+          /* Project Name: Landing Page Using SwiperJS
             Youtube: https://youtube.com/@devRasen
             Copyright: ©MdRasen */
-            
-            /* Google Font */
-            @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500;900&display=swap");
-            
-            /* General CSS */
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-              font-family: "Open Sans", sans-serif;
-            }
-            
-            /* Custom CSS */
-            .container {
-              margin: 0 auto;
-              width: 100%;
-              min-height: 100vh;
-              column-gap: 40px;
-              padding: 60px 6%;
-            }
-            
-            .container .side-info {
-              margin: 20px 0;
-            }
-            
-            .container .side-info span {
-              text-transform: uppercase;
-              letter-spacing: 1.5px;
-              font-size: 16px;
-              color: #717171;
-            }
-            
-            .container .side-info h1 {
-              text-transform: capitalize;
-              letter-spacing: 0.8px;
-              font-family: "Roboto", sans-serif;
-              font-weight: 900;
-              font-size: 56px;
-              background-color: #005baa;
-              background-image: linear-gradient(45deg, #005baa, #000000);
-              background-size: 100%;
-              background-repeat: repeat;
-              background-clip: text;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              -moz-background-clip: text;
-              -moz-text-fill-color: transparent;
-            }
-            
-            .container .side-info hr {
-              display: block;
-              background: #005baa;
-              height: 4px;
-              width: 20%;
-              margin: 18px 0;
-            }
-            
-            .container a {
-              display: inline-block;
-              text-decoration: none;
-              text-transform: uppercase;
-              color: #717171;
-              font-weight: 500;
-              background: #fff;
-              border-radius: 50px;
-              border: 2px solid #c2c2c2;
-              padding: 8px 16px;
-              margin-top: 20px;
-              transition: 0.3s ease-in-out;
-            }
-            
-            .container a:hover {
-              border: 2px solid #005baa;
-              color: #005baa;
-            }
-            
-            .container .swiper {
-              width: 100%;
-              max-width: 100%;
-              overflow: scroll;
-            }
-            
-            .swiper-pagination-bullet,
-            .swiper-pagination-bullet-active {
-              background: #fff;
-            }
-            
-            .swiper-pagination {
-              bottom: 20px !important;
-            }
-            
-            .swiper-slide {
-              width: 300px;
-              height: 450px;
-              display: flex;
-              flex-direction: column;
-              justify-content: end;
-              align-items: self-start;
-            }
-            
-            .swiper-slide h2 {
-              color: #fff;
-              font-family: "Roboto", sans-serif;
-              font-weight: 400;
-              font-size: 22px;
-              line-height: 1.4;
-              margin-bottom: 10px;
-              padding: 0 0 0 24px;
-              text-transform: uppercase;
-            }
-            
-            .swiper-slide p {
-              color: #dadada;
-              font-family: "Roboto", sans-serif;
-              font-weight: 300;
-              padding: 0 24px;
-              font-size: 12px;
-              display: -webkit-box;
-              -webkit-line-clamp: 4;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-            }
-            
-            .swiper-slide a {
-              margin: 20px 25px 50px !important;
-              padding: 8px 16px !important;
-              font-size: 14px;
-              border: none;
-            }
-            
-            .swiper-slide a:hover {
-              border: none;
-            }
-            
-            .swiper-slide div {
+
+          /* Google Font */
+          @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500;900&display=swap");
+
+          /* General CSS */
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+          }
+
+          /* Custom CSS */
+          .container {
+            margin: 0 auto;
+            width: 100%;
+            min-height: 100vh;
+            column-gap: 40px;
+            padding: 60px 6%;
+          }
+
+          .container .side-info {
+            margin: 20px 0;
+          }
+
+          .container .side-info span {
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 16px;
+            color: #717171;
+          }
+
+          .container .side-info h1 {
+            text-transform: capitalize;
+            letter-spacing: 0.8px;
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 56px;
+            background-color: #005baa;
+            background-image: linear-gradient(45deg, #005baa, #000000);
+            background-size: 100%;
+            background-repeat: repeat;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+          }
+
+          .container .side-info hr {
+            display: block;
+            background: #005baa;
+            height: 4px;
+            width: 20%;
+            margin: 18px 0;
+          }
+
+          .container a {
+            display: inline-block;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #717171;
+            font-weight: 500;
+            background: #fff;
+            border-radius: 50px;
+            border: 2px solid #c2c2c2;
+            padding: 8px 16px;
+            margin-top: 20px;
+            transition: 0.3s ease-in-out;
+          }
+
+          .container a:hover {
+            border: 2px solid #005baa;
+            color: #005baa;
+          }
+
+          .container .swiper {
+            width: 100%;
+            max-width: 100%;
+            overflow: scroll;
+          }
+
+          .swiper-pagination-bullet,
+          .swiper-pagination-bullet-active {
+            background: #fff;
+          }
+
+          .swiper-pagination {
+            bottom: 20px !important;
+          }
+
+          .swiper-slide {
+            width: 300px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: self-start;
+          }
+
+          .swiper-slide h2 {
+            color: #fff;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-size: 22px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            padding: 0 0 0 24px;
+            text-transform: uppercase;
+          }
+
+          .swiper-slide p {
+            color: #dadada;
+            font-family: "Roboto", sans-serif;
+            font-weight: 300;
+            padding: 0 24px;
+            font-size: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .swiper-slide a {
+            margin: 20px 25px 50px !important;
+            padding: 8px 16px !important;
+            font-size: 14px;
+            border: none;
+          }
+
+          .swiper-slide a:hover {
+            border: none;
+          }
+
+          .swiper-slide div {
+            display: none;
+            opacity: 0;
+            padding-bottom: 10px;
+          }
+
+          .swiper-slide-active div {
+            display: block;
+            opacity: 1;
+          }
+
+          .slide-one {
+            background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+              url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car1.jpg?raw=true) no-repeat 50% 50% / cover;
+          }
+
+          .slide-two {
+            background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+              url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car2.jpg?raw=true) no-repeat 50% 50% / cover;
+          }
+
+          .slide-three {
+            background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+              url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car3.jpg?raw=true) no-repeat 50% 50% / cover;
+          }
+
+          .slide-four {
+            background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+              url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car4.jpg?raw=true) no-repeat 50% 50% / cover;
+          }
+
+          @media screen AND (max-width:1020px) {
+            .swiper-slide.slide-three {
               display: none;
-              opacity: 0;
-              padding-bottom: 10px;
             }
-            
-            .swiper-slide-active div {
-              display: block;
-              opacity: 1;
+          }
+
+          @media screen AND (max-width:830px) {
+
+            .swiper-slide.slide-three,
+            .swiper-slide.slide-two {
+              display: none;
             }
-            
-            .slide-one {
-              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car1.jpg?raw=true) no-repeat 50% 50% / cover;
-            }
-            
-            .slide-two {
-              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car2.jpg?raw=true) no-repeat 50% 50% / cover;
-            }
-            
-            .slide-three {
-              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car3.jpg?raw=true) no-repeat 50% 50% / cover;
-            }
-            
-            .slide-four {
-              background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-                url(https://github.com/MdRasen/Landing-Page-Using-SwiperJS/blob/main/Landing%20Page%20Using%20SwiperJS/assets/car4.jpg?raw=true) no-repeat 50% 50% / cover;
-            }
-            
-            @media screen AND (max-width:1020px) {
-                .swiper-slide.slide-three {
-                    display:none;
-                }
-            }
-            @media screen AND (max-width:830px) {
-                .swiper-slide.slide-three,
-                .swiper-slide.slide-two {
-                    display:none;
-                }
+          }
+
+          /* Responsive Design */
+          @media (min-width: 800px) {
+            .container {
+              display: flex;
+              align-items: center;
             }
 
-            /* Responsive Design */
-            @media (min-width: 800px) {
-              .container {
-                display: flex;
-                align-items: center;
-              }
-            
-              .container .side-info {
-                margin-bottom: 20px;
-              }
+            .container .side-info {
+              margin-bottom: 20px;
             }
-            
-            @media (max-width: 500px) {
-              .container .side-info h1 {
-                font-size: 46px;
-              }
-            
-              .container .side-info p {
-                font-size: 14px;
-              }
+          }
+
+          @media (max-width: 500px) {
+            .container .side-info h1 {
+              font-size: 46px;
             }
-          </style>
+
+            .container .side-info p {
+              font-size: 14px;
+            }
+          }
+        </style>
         </script>
-      </li>
-    </ul>
-  </li>
-  <li>Options
-    <ul>
-      <li>Three options
-        <script type="text/x-template">
-            <div class="bg-gray-100 p-8 height-full">
-              <h1 class="text-2xl font-bold mb-6">Choose a narration style:</h1>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Option 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                  <div class="text-center">
-                    <i class="fas fa-user-friends text-4xl text-gray-700 mb-4"></i>
-                    <h2 class="font-semibold text-xl mb-4">Narrate with loved one's voice</h2>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
-                  </div>
-                </div>
-                
-                <!-- Option 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                  <div class="text-center">
-                    <i class="fas fa-microphone text-4xl text-gray-700 mb-4"></i>
-                    <h2 class="font-semibold text-xl mb-4">Narrate with your voice</h2>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
-                  </div>
-                </div>
-                
-                <!-- Option 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                  <div class="text-center">
-                    <i class="fas fa-users text-4xl text-gray-700 mb-4"></i>
-                    <h2 class="font-semibold text-xl mb-4">Narrate from our selected voices</h2>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Select</button>
-                  </div>
-                </div>
-                
-              </div>
-            </div>
-          </script>
       </li>
     </ul>
   </li>
